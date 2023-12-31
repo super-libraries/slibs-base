@@ -1,5 +1,7 @@
 package cn.slibs.base.map;
 
+import com.iofairy.falcon.time.DateTime;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
@@ -52,6 +54,7 @@ public class SOLinkedHashMap extends LinkedHashMap<String, Object> {
     /*
      * get 方法
      */
+    @SuppressWarnings("unchecked")
     public <T> T getData(String key) {
         return (T) get(key);
     }
@@ -66,6 +69,11 @@ public class SOLinkedHashMap extends LinkedHashMap<String, Object> {
 
     public Calendar getCalendar(String key) {
         return (Calendar) get(key);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> DateTime<T> getDateTime(String key) {
+        return (DateTime<T>) get(key);
     }
 
     public BigDecimal getBigDecimal(String key) {

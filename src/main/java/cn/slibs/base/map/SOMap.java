@@ -51,6 +51,7 @@ public class SOMap extends HashMap<String, Object> {
     /*
      * get 方法
      */
+    @SuppressWarnings("unchecked")
     public <T> T getData(String key) {
         return (T) get(key);
     }
@@ -67,6 +68,7 @@ public class SOMap extends HashMap<String, Object> {
         return (Calendar) get(key);
     }
 
+    @SuppressWarnings("unchecked")
     public <T> DateTime<T> getDateTime(String key) {
         return (DateTime<T>) get(key);
     }

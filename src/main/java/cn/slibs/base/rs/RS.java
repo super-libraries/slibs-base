@@ -1,5 +1,7 @@
 package cn.slibs.base.rs;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 
 /**
@@ -19,18 +21,22 @@ public class RS<T> implements Serializable {
     /**
      * 状态码
      */
+    @Getter
     private String code;
     /**
      * 请求信息
      */
+    @Getter
     private String msg;
     /**
      * 完整的错误信息
      */
+    @Getter
     private String error;
     /**
      * 请求的数据
      */
+    @Getter
     private T data;
 
     public RS() {
@@ -98,25 +104,9 @@ public class RS<T> implements Serializable {
         return new RS<D>(statusCode.getCode(), statusCode.getMsg()).setError(error);
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public String getError() {
-        return error;
-    }
-
     public RS<T> setError(String error) {
         this.error = error;
         return this;
-    }
-
-    public T getData() {
-        return data;
     }
 
     public RS<T> setData(T data) {

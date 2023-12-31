@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class GlobalException extends RuntimeException {
 
-    private static final long serialVersionUID = 5658766541661L;
+    private static final long serialVersionUID = 9658754569856566L;
 
     /**
      * 错误码

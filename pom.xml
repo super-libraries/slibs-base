@@ -8,6 +8,11 @@
     <artifactId>slibs-base</artifactId>
     <version>0.0.1</version>
 
+    <packaging>jar</packaging>
+    <name>A slibs base library</name>
+    <description>A slibs base library</description>
+    <url>https://github.com/super-libraries/slibs-base</url>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -16,6 +21,7 @@
         <functional.version>0.4.15</functional.version>
         <falcon.version>0.4.15</falcon.version>
         <lombok.version>1.18.30</lombok.version>
+        <junit5.version>5.10.1</junit5.version>
     </properties>
 
     <dependencies>
@@ -34,6 +40,30 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!--
+        ======================
+        ****** 测试依赖包 ******
+        ======================
+        -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit5.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.16.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.16.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
