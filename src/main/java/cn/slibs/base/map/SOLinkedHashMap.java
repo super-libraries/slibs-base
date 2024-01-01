@@ -11,6 +11,8 @@ import java.util.Map;
 
 /**
  * 等同于 {@code LinkedHashMap<String, Object>}
+ *
+ * @since 0.0.1
  */
 public class SOLinkedHashMap extends LinkedHashMap<String, Object> {
 
@@ -37,12 +39,49 @@ public class SOLinkedHashMap extends LinkedHashMap<String, Object> {
         return new SOLinkedHashMap();
     }
 
+    /**
+     * 从key-value对中创建map
+     *
+     * @param kvs key-value对
+     * @return map
+     * @since 0.0.2
+     */
+    public static SOLinkedHashMap of(Object... kvs) {
+        verifyPairWithStringKey(kvs);
+
+        SOLinkedHashMap soMap = new SOLinkedHashMap();
+        for (int i = 0; i < kvs.length; ) {
+            soMap.put((String) kvs[i], kvs[i + 1]);
+            i += 2;
+        }
+
+        return soMap;
+    }
+
+
     public static SOLinkedHashMap of(Map<? extends String, ?> map) {
         return new SOLinkedHashMap(map);
     }
 
     public SOLinkedHashMap putData(String key, Object value) {
         put(key, value);
+        return this;
+    }
+
+    /**
+     * 批量 put 多个键值对
+     *
+     * @param kvs key-value对
+     * @return map
+     * @since 0.0.2
+     */
+    public SOLinkedHashMap putData(Object... kvs) {
+        verifyPairWithStringKey(kvs);
+
+        for (int i = 0; i < kvs.length; ) {
+            put((String) kvs[i], kvs[i + 1]);
+            i += 2;
+        }
         return this;
     }
 
@@ -144,4 +183,20 @@ public class SOLinkedHashMap extends LinkedHashMap<String, Object> {
         return (boolean) get(key);
     }
 
+
+    static void verifyPairWithStringKey(Object... kvs) {
+        if (kvs != null) {
+            if (kvs.length % 2 != 0)
+                throw new RuntimeException("The parameters length must be even. 参数个数必须为偶数。");
+            for (int i = 0; i < kvs.length; i++) {
+                if (i % 2 == 0) {
+                    try {
+                        String k = (String) kvs[i];
+                    } catch (ClassCastException castException) {
+                        throw new ClassCastException("Index: " + i + ". This parameter is a key, the key must be `String` type. ");
+                    }
+                }
+            }
+        }
+    }
 }

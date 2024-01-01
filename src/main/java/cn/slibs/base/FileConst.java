@@ -2,6 +2,8 @@ package cn.slibs.base;
 
 /**
  * 文件相关常量
+ *
+ * @since 0.0.1
  */
 public class FileConst {
     /*
@@ -47,6 +49,7 @@ public class FileConst {
      */
     public static final String IGNORE = ".ignore";
     public static final String GZ = ".gz";
+    public static final String TAR_GZ = ".tar.gz";
     public static final String ZIP = ".zip";
     public static final String TXT = ".txt";
     public static final String CSV = ".csv";

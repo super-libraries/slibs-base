@@ -1,13 +1,15 @@
 package cn.slibs.base.exception;
 
 
-import cn.slibs.base.rs.IStatusCode;
-import cn.slibs.base.rs.StatusCode;
+import cn.slibs.base.IStatusCode;
+import cn.slibs.base.StatusCode;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * 全局统一异常
+ *
+ * @since 0.0.1
  */
 @Getter
 @Setter

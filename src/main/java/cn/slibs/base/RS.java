@@ -1,42 +1,52 @@
-package cn.slibs.base.rs;
+package cn.slibs.base;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 /**
  * 返回数据对象（Result Or Response）
+ *
+ * @since 0.0.1
  */
+@Getter
 public class RS<T> implements Serializable {
     private static final long serialVersionUID = 99876587956866169L;
     /**
      * 默认成功状态码
      */
+    @Getter
+    @Setter
     private static IStatusCode defaultSuccessStatusCode = StatusCode.OK;
     /**
      * 默认错误状态码
      */
+    @Getter
+    @Setter
     private static IStatusCode defaultErrorStatusCode = StatusCode.INTERNAL_SERVER_ERROR;
+    /**
+     * IStatusCode 默认是否显示英文消息
+     */
+    @Getter
+    @Setter
+    private static boolean isDefaultEnglish = false;
 
     /**
      * 状态码
      */
-    @Getter
     private String code;
     /**
      * 请求信息
      */
-    @Getter
     private String msg;
     /**
      * 完整的错误信息
      */
-    @Getter
     private String error;
     /**
      * 请求的数据
      */
-    @Getter
     private T data;
 
     public RS() {
@@ -58,9 +68,9 @@ public class RS<T> implements Serializable {
         this(statusCode, null);
     }
 
-    public RS(IStatusCode statusCode, T data){
+    public RS(IStatusCode statusCode, T data) {
         this.code = statusCode.getCode();
-        this.msg = statusCode.getMsg();
+        this.msg = isDefaultEnglish ? statusCode.getMsgEn() : statusCode.getMsg();
         this.data = data;
     }
 
@@ -97,11 +107,11 @@ public class RS<T> implements Serializable {
     }
 
     public static <D> RS<D> error(IStatusCode statusCode) {
-        return new RS<D>(statusCode.getCode(), statusCode.getMsg());
+        return new RS<D>(statusCode);
     }
 
     public static <D> RS<D> error(IStatusCode statusCode, String error) {
-        return new RS<D>(statusCode.getCode(), statusCode.getMsg()).setError(error);
+        return new RS<D>(statusCode).setError(error);
     }
 
     public RS<T> setError(String error) {
@@ -114,28 +124,12 @@ public class RS<T> implements Serializable {
         return this;
     }
 
-    public boolean success(){
+    public boolean success() {
         return defaultSuccessStatusCode.getCode().equals(code);
     }
 
     public boolean failed() {
         return !defaultSuccessStatusCode.getCode().equals(code);
-    }
-
-    public static IStatusCode getDefaultSuccessCode() {
-        return defaultSuccessStatusCode;
-    }
-
-    public static void setDefaultSuccessCode(IStatusCode statusCode) {
-        RS.defaultSuccessStatusCode = statusCode;
-    }
-
-    public static IStatusCode getDefaultErrorStatusCode() {
-        return defaultErrorStatusCode;
-    }
-
-    public static void setDefaultErrorStatusCode(IStatusCode defaultErrorStatusCode) {
-        RS.defaultErrorStatusCode = defaultErrorStatusCode;
     }
 
     @Override

@@ -1,10 +1,19 @@
 package cn.slibs.base.validation;
 
 import com.iofairy.top.G;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * 校验抽象类
+ *
+ * @since 0.0.1
+ */
+@Getter
+@Setter
 public abstract class Validate {
     protected Object value;
     protected Class<?>[] groups;
@@ -26,62 +35,6 @@ public abstract class Validate {
     protected abstract String generateMessage(String messageTag, String fieldName);
 
     protected abstract String generateCode();
-
-    public Object getValue() {
-        return value;
-    }
-
-    public void setValue(Object value) {
-        this.value = value;
-    }
-
-    public Class<?>[] getGroups() {
-        return groups;
-    }
-
-    public void setGroups(Class<?>[] groups) {
-        this.groups = groups;
-    }
-
-    public String getGroupsString() {
-        return groupsString;
-    }
-
-    public void setGroupsString(String groupsString) {
-        this.groupsString = groupsString;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    public String getImportClass() {
-        return importClass;
-    }
-
-    public void setImportClass(String importClass) {
-        this.importClass = importClass;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     @Override
     public String toString() {

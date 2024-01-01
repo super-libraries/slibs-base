@@ -1,7 +1,10 @@
-package cn.slibs.base.rs;
+package cn.slibs.base;
+
 
 /**
  * 状态码枚举
+ *
+ * @since 0.0.1
  */
 public enum StatusCode implements IStatusCode {
     OK("0", "成功！", "OK!"),

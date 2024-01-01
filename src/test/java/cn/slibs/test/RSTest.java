@@ -2,9 +2,9 @@ package cn.slibs.test;
 
 import cn.slibs.base.map.SOHashMap;
 import cn.slibs.base.map.SOMap;
-import cn.slibs.base.rs.IStatusCode;
-import cn.slibs.base.rs.RS;
-import cn.slibs.base.rs.StatusCode;
+import cn.slibs.base.IStatusCode;
+import cn.slibs.base.RS;
+import cn.slibs.base.StatusCode;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author GG
@@ -28,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class RSTest {
     private static ObjectMapper MAPPER = null;
+
     @BeforeAll
     static void beforeAll() {
         MAPPER = new ObjectMapper();
@@ -42,7 +42,7 @@ public class RSTest {
         try {
             System.out.println(MAPPER.writeValueAsString(ok));      // {"code":"0","msg":"成功！","error":null,"data":null}
             System.out.println(ok);                                 // RS{code='0', msg='成功！', error=null, data=null}
-            
+
             assertEquals(MAPPER.writeValueAsString(ok), "{\"code\":\"0\",\"msg\":\"成功！\",\"error\":null,\"data\":null}");
             assertEquals(ok.toString(), "RS{code='0', msg='成功！', error=null, data=null}");
 
@@ -57,7 +57,7 @@ public class RSTest {
             assertTrue(ok.success());
 
             System.out.println("==================================");
-            RS.setDefaultSuccessCode(StatusCodeExt.OK);
+            RS.setDefaultSuccessStatusCode(StatusCodeExt.OK);
 
             System.out.println("是否成功：" + ok.success());          // 是否成功：false
             RS<Object> newOk = RS.ok();
@@ -70,7 +70,7 @@ public class RSTest {
             assertEquals(newOk.toString(), "RS{code='200', msg='成功！', error=null, data=null}");
             assertTrue(newOk.success());
 
-            RS.setDefaultSuccessCode(StatusCode.OK);
+            RS.setDefaultSuccessStatusCode(StatusCode.OK);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -212,9 +212,27 @@ public class RSTest {
         System.out.println(userRS);
 
         assertEquals(userRS.toString(), "RS{code='0', msg='成功！', error=null, data=User{name='null', age=0}}");
+
+        RS.setDefaultEnglish(true);
+        userRS = RS.ok(user);
+        System.out.println(userRS);
+        assertEquals(userRS.toString(), "RS{code='0', msg='OK!', error=null, data=User{name='null', age=0}}");
+
+        RS<?> error = RS.error(StatusCode.EMAIL_VERIFI_CODE_IS_INCORRECT);
+        System.out.println(error);
+        assertEquals(error.toString(), "RS{code='10132', msg='Email Verifi Code Is Incorrect', error=null, data=null}");
+
+        System.out.println(RS.isDefaultEnglish());
+        System.out.println(RS.getDefaultSuccessStatusCode());
+        System.out.println(RS.getDefaultErrorStatusCode());
+        assertTrue(RS.isDefaultEnglish());
+        assertEquals("OK", RS.getDefaultSuccessStatusCode().toString());
+        assertEquals("INTERNAL_SERVER_ERROR", RS.getDefaultErrorStatusCode().toString());
+
+        RS.setDefaultEnglish(false);
     }
 
-    static class User{
+    static class User {
         private String name;
         @JsonProperty("USER_AGE")
         private int age;

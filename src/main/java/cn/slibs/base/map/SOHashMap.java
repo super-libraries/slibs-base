@@ -4,6 +4,8 @@ import java.util.Map;
 
 /**
  * 等同于 {@code HashMap<String, Object>}
+ *
+ * @since 0.0.1
  */
 public class SOHashMap extends SOMap {
 
@@ -27,6 +29,26 @@ public class SOHashMap extends SOMap {
         return new SOHashMap();
     }
 
+    /**
+     * 从key-value对中创建map
+     *
+     * @param kvs key-value对
+     * @return map
+     * @since 0.0.2
+     */
+    public static SOHashMap of(Object... kvs) {
+        verifyPairWithStringKey(kvs);
+
+        SOHashMap soMap = new SOHashMap();
+        for (int i = 0; i < kvs.length; ) {
+            soMap.put((String) kvs[i], kvs[i + 1]);
+            i += 2;
+        }
+
+        return soMap;
+    }
+
+
     public static SOHashMap of(Map<? extends String, ?> map) {
         return new SOHashMap(map);
     }
@@ -34,6 +56,24 @@ public class SOHashMap extends SOMap {
     @Override
     public SOHashMap putData(String key, Object value) {
         put(key, value);
+        return this;
+    }
+
+    /**
+     * 批量 put 多个键值对
+     *
+     * @param kvs key-value对
+     * @return map
+     * @since 0.0.2
+     */
+    @Override
+    public SOHashMap putData(Object... kvs) {
+        verifyPairWithStringKey(kvs);
+
+        for (int i = 0; i < kvs.length; ) {
+            put((String) kvs[i], kvs[i + 1]);
+            i += 2;
+        }
         return this;
     }
 
