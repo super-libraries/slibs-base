@@ -1,11 +1,11 @@
-package cn.slibs.base;
+package cn.slibs.base.misc;
 
 /**
- * 文件相关常量
+ * 常量
  *
  * @since 0.0.1
  */
-public class FileConst {
+public class Const {
     /*
      * 目录分隔符
      */

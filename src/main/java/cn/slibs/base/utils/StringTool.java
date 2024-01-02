@@ -1,9 +1,7 @@
 package cn.slibs.base.utils;
 
-import cn.slibs.base.FileConst;
+import cn.slibs.base.misc.Const;
 import com.iofairy.top.S;
-
-import java.io.UnsupportedEncodingException;
 
 /**
  * string工具类
@@ -19,10 +17,13 @@ public class StringTool {
      * @param fromCharset 原始编码
      * @param toCharset   目标编码
      * @return 转换编码后的字符串
-     * @throws UnsupportedEncodingException 如果不支持的编码，将抛出此异常
      */
-    public static String convertEncode(String str, String fromCharset, String toCharset) throws UnsupportedEncodingException {
-        return str == null ? null : new String(str.getBytes(fromCharset), toCharset);
+    public static String convertEncode(String str, String fromCharset, String toCharset) {
+        try {
+            return str == null ? null : new String(str.getBytes(fromCharset), toCharset);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -32,7 +33,7 @@ public class StringTool {
      * @return 带双引号的字符串
      */
     public static String addQuote(String str) {
-        return null == str ? null : FileConst.QUOTE + str + FileConst.QUOTE;
+        return null == str ? null : Const.QUOTE + str + Const.QUOTE;
     }
 
     /**
