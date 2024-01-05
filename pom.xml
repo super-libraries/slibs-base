@@ -6,11 +6,11 @@
 
     <groupId>cn.slibs</groupId>
     <artifactId>slibs-base</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
 
     <packaging>jar</packaging>
-    <name>A slibs base library</name>
-    <description>A slibs base library</description>
+    <name>A Java base library</name>
+    <description>A Java base library</description>
     <url>https://github.com/super-libraries/slibs-base</url>
 
     <properties>
@@ -21,6 +21,9 @@
         <functional.version>0.4.15</functional.version>
         <falcon.version>0.4.15</falcon.version>
         <lombok.version>1.18.30</lombok.version>
+        <swagger-v3.version>2.2.20</swagger-v3.version>
+        <swagger-v2.version>1.6.12</swagger-v2.version>
+
         <junit5.version>5.10.1</junit5.version>
     </properties>
 
@@ -42,8 +45,21 @@
             <scope>provided</scope>
         </dependency>
 
-
-
+        <!--
+        =============================
+        ****** swagger注解依赖包 ******
+        =============================
+        -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger-v3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger-v2.version}</version>
+        </dependency>
         <!--
         ======================
         ****** 测试依赖包 ******
