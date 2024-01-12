@@ -6,7 +6,7 @@ import com.iofairy.top.S;
 public class VNotEmpty extends Validate {
 
     public VNotEmpty(Class<?>[] groups, String messageTag, String fieldName) {
-        super(null, groups, messageTag, fieldName, "javax.validation.constraints.NotEmpty");
+        super(null, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "NotEmpty");
         this.message = generateMessage(messageTag, fieldName);
         this.code = generateCode();
     }

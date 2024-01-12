@@ -6,7 +6,7 @@ import com.iofairy.top.S;
 public class VPositive extends Validate {
 
     public VPositive(Class<?>[] groups, String messageTag, String fieldName) {
-        super(null, groups, messageTag, fieldName, "javax.validation.constraints.Positive");
+        super(null, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "Positive");
         this.message = generateMessage(messageTag, fieldName);
         this.code = generateCode();
     }

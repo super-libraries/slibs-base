@@ -16,8 +16,8 @@ public class VListValue extends Validate {
     private String[] values;
     private final String[] valueComments;
 
-    public VListValue(String[] value, String[] valueComments, Class<?>[] groups, String messageTag, String fieldName) {
-        super(value, groups, messageTag, fieldName, "com.nsn.commons.validate.ListValue");
+    public VListValue(String[] value, String[] valueComments, Class<?>[] groups, String messageTag, String fieldName, String className) {
+        super(value, groups, messageTag, fieldName, className);
         this.values = value;
         this.valueComments = valueComments;
         if (G.isEmpty(values)) {

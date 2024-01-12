@@ -6,7 +6,7 @@ import com.iofairy.top.S;
 public class VNegative extends Validate {
 
     public VNegative(Class<?>[] groups, String messageTag, String fieldName) {
-        super(null, groups, messageTag, fieldName, "javax.validation.constraints.Negative");
+        super(null, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "Negative");
         this.message = generateMessage(messageTag, fieldName);
         this.code = generateCode();
     }

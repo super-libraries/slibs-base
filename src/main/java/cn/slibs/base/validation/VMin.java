@@ -7,7 +7,7 @@ public class VMin extends Validate {
     private long minValue;
 
     public VMin(long value, Class<?>[] groups, String messageTag, String fieldName) {
-        super(value, groups, messageTag, fieldName, "javax.validation.constraints.Min");
+        super(value, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "Min");
         this.minValue = value;
         this.message = generateMessage(messageTag, fieldName);
         this.code = generateCode();

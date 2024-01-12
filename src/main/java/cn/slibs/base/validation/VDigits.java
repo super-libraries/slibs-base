@@ -8,7 +8,7 @@ public class VDigits extends Validate {
     private int fraction;
 
     public VDigits(int integer, int fraction, Class<?>[] groups, String messageTag, String fieldName) {
-        super(null, groups, messageTag, fieldName, "javax.validation.constraints.Digits");
+        super(null, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "Digits");
         this.integer = integer;
         this.fraction = fraction;
         this.message = generateMessage(messageTag, fieldName);

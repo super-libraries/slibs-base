@@ -6,7 +6,7 @@ import com.iofairy.top.S;
 public class VAssertTrue extends Validate {
 
     public VAssertTrue(Class<?>[] groups, String messageTag, String fieldName) {
-        super(null, groups, messageTag, fieldName, "javax.validation.constraints.AssertTrue");
+        super(null, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "AssertTrue");
         this.message = generateMessage(messageTag, fieldName);
         this.code = generateCode();
     }

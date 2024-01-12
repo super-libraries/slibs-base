@@ -6,7 +6,7 @@ import com.iofairy.top.S;
 public class VPositiveOrZero extends Validate {
 
     public VPositiveOrZero(Class<?>[] groups, String messageTag, String fieldName) {
-        super(null, groups, messageTag, fieldName, "javax.validation.constraints.PositiveOrZero");
+        super(null, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "PositiveOrZero");
         this.message = generateMessage(messageTag, fieldName);
         this.code = generateCode();
     }

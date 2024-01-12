@@ -8,7 +8,7 @@ public class VSize extends Validate {
     private int max;
 
     public VSize(int min, int max, Class<?>[] groups, String messageTag, String fieldName) {
-        super(null, groups, messageTag, fieldName, "javax.validation.constraints.Size");
+        super(null, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "Size");
         this.min = min;
         this.max = max;
         this.message = generateMessage(messageTag, fieldName);

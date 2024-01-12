@@ -6,7 +6,7 @@ import com.iofairy.top.S;
 public class VPastOrPresent extends Validate {
 
     public VPastOrPresent(Class<?>[] groups, String messageTag, String fieldName) {
-        super(null, groups, messageTag, fieldName, "javax.validation.constraints.PastOrPresent");
+        super(null, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "PastOrPresent");
         this.message = generateMessage(messageTag, fieldName);
         this.code = generateCode();
     }

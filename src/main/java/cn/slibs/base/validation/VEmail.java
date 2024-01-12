@@ -6,7 +6,7 @@ import com.iofairy.top.S;
 public class VEmail extends Validate {
 
     public VEmail(Class<?>[] groups, String messageTag, String fieldName) {
-        super(null, groups, messageTag, fieldName, "javax.validation.constraints.Email");
+        super(null, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "Email");
         this.message = generateMessage(messageTag, fieldName);
         this.code = generateCode();
     }

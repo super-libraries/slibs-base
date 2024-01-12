@@ -6,7 +6,7 @@ import com.iofairy.top.S;
 public class VPast extends Validate {
 
     public VPast(Class<?>[] groups, String messageTag, String fieldName) {
-        super(null, groups, messageTag, fieldName, "javax.validation.constraints.Past");
+        super(null, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "Past");
         this.message = generateMessage(messageTag, fieldName);
         this.code = generateCode();
     }

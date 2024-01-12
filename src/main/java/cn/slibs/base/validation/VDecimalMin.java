@@ -8,7 +8,7 @@ public class VDecimalMin extends Validate {
     private boolean inclusive;
 
     public VDecimalMin(String value, boolean inclusive, Class<?>[] groups, String messageTag, String fieldName) {
-        super(value, groups, messageTag, fieldName, "javax.validation.constraints.DecimalMin");
+        super(value, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "DecimalMin");
         this.strValue = value;
         this.inclusive = inclusive;
         this.message = generateMessage(messageTag, fieldName);

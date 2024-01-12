@@ -8,7 +8,7 @@ public class VDecimalMax extends Validate {
     private boolean inclusive;
 
     public VDecimalMax(String value, boolean inclusive, Class<?>[] groups, String messageTag, String fieldName) {
-        super(value, groups, messageTag, fieldName, "javax.validation.constraints.DecimalMax");
+        super(value, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "DecimalMax");
         this.strValue = value;
         this.inclusive = inclusive;
         this.message = generateMessage(messageTag, fieldName);

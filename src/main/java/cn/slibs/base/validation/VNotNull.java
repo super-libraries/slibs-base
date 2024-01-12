@@ -6,7 +6,7 @@ import com.iofairy.top.S;
 public class VNotNull extends Validate {
 
     public VNotNull(Class<?>[] groups, String messageTag, String fieldName) {
-        super(null, groups, messageTag, fieldName, "javax.validation.constraints.NotNull");
+        super(null, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "NotNull");
         this.message = generateMessage(messageTag, fieldName);
         this.code = generateCode();
     }

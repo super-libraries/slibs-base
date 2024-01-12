@@ -15,11 +15,12 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public abstract class Validate {
+    public final static String VALIDATE_CLASS_PREFIX = "javax.validation.constraints.";
     protected Object value;
     protected Class<?>[] groups;
     protected String groupsString;
     protected String className;
-    protected String importClass;
+    protected String importStatement;
     protected String message;
     protected String code;
 
@@ -29,7 +30,7 @@ public abstract class Validate {
         this.groupsString = G.isEmpty(groups) ? "" : ", groups = {" + Arrays.stream(groups).map(c -> c.getSimpleName() + ".class")
                 .collect(Collectors.joining(", ")) + "}";
         this.className = className;
-        this.importClass = "import " + className + ";";
+        this.importStatement = "import " + className + ";";
     }
 
     protected abstract String generateMessage(String messageTag, String fieldName);

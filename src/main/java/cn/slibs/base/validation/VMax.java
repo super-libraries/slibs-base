@@ -10,7 +10,7 @@ public class VMax extends Validate {
     private long maxValue;
 
     public VMax(long value, Class<?>[] groups, String messageTag, String fieldName) {
-        super(value, groups, messageTag, fieldName, "javax.validation.constraints.Max");
+        super(value, groups, messageTag, fieldName, VALIDATE_CLASS_PREFIX + "Max");
         this.maxValue = value;
         this.message = generateMessage(messageTag, fieldName);
         this.code = generateCode();
