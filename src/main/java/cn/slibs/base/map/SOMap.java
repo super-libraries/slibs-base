@@ -1,6 +1,7 @@
 package cn.slibs.base.map;
 
 import com.iofairy.falcon.time.DateTime;
+import com.iofairy.top.O;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -44,7 +45,7 @@ public class SOMap extends HashMap<String, Object> {
      * @since 0.0.2
      */
     public static SOMap of(Object... kvs) {
-        verifyPairWithStringKey(kvs);
+        O.verifyMapKV(true, true, false, kvs);
 
         SOMap soMap = new SOMap();
         for (int i = 0; i < kvs.length; ) {
@@ -72,7 +73,7 @@ public class SOMap extends HashMap<String, Object> {
      * @since 0.0.2
      */
     public SOMap putData(Object... kvs) {
-        verifyPairWithStringKey(kvs);
+        O.verifyMapKV(true, true, false, kvs);
 
         for (int i = 0; i < kvs.length; ) {
             put((String) kvs[i], kvs[i + 1]);
@@ -179,19 +180,4 @@ public class SOMap extends HashMap<String, Object> {
         return (boolean) get(key);
     }
 
-    static void verifyPairWithStringKey(Object... kvs) {
-        if (kvs != null) {
-            if (kvs.length % 2 != 0)
-                throw new RuntimeException("The parameters length must be even. 参数个数必须为偶数。");
-            for (int i = 0; i < kvs.length; i++) {
-                if (i % 2 == 0) {
-                    try {
-                        String k = (String) kvs[i];
-                    } catch (ClassCastException castException) {
-                        throw new ClassCastException("Index: " + i + ". This parameter is a key, the key must be `String` type. ");
-                    }
-                }
-            }
-        }
-    }
 }
