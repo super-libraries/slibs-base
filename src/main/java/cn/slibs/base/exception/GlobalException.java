@@ -81,9 +81,4 @@ public class GlobalException extends RuntimeException {
         return errorMsg;
     }
 
-    @Override
-    public Throwable fillInStackTrace() {
-        return this;
-    }
-
 }

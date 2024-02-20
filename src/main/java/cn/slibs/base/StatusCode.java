@@ -32,7 +32,7 @@ public enum StatusCode implements IStatusCode {
     SWITCH_PROXY("306", "后续请求应使用指定的代理（此状态码已作废）", "Switch Proxy"),
     TEMPORARY_REDIRECT("307", "临时重定向（与302类似），使用GET请求重定向", "Temporary Redirect"),
     PERMANENT_REDIRECT("308", "永久重定向", "Permanent Redirect"),
-    BAD_REQUEST("400", "客户端错误，导致服务器无法处理请求", "Bad Request"),
+    BAD_REQUEST("400", "客户端错误或无效的参数、未按约定传参等，导致服务器无法处理请求", "Bad Request"),
     UNAUTHORIZED("401", "未经授权（与403 Forbidden类似）", "Unauthorized"),
     PAYMENT_REQUIRED("402", "需要付款", "Payment Required"),
     FORBIDDEN("403", "禁止访问", "Forbidden"),

@@ -25,7 +25,11 @@ public class HttpUtils {
          * application/xxx-json 如：application/vnd.ipld.dag-json
          * model/gltf+json 用于描述3D模型信息的Json数据
          */
-        boolean containsJson = contentType.contains("+json") || contentType.endsWith("-json") || contentType.contains("-json;");
+        boolean containsJson = contentType.endsWith("+json")
+                || contentType.contains("+json;")
+                || contentType.endsWith("-json")
+                || contentType.contains("-json;");
+
         return contentType.equals("application/json")
                 || contentType.startsWith("application/json;")
                 || (contentType.startsWith("application/") && containsJson)

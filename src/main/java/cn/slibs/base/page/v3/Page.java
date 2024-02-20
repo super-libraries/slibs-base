@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,7 +17,9 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Schema(description = "分页类")
-public class Page<T> {
+public class Page<T> implements Serializable {
+    private static final long serialVersionUID = 356789552356697851L;
+
     /**
      * 每页记录数
      */

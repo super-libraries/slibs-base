@@ -6,7 +6,7 @@
 
     <groupId>cn.slibs</groupId>
     <artifactId>slibs-base</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
 
     <packaging>jar</packaging>
     <name>A Java base library</name>
@@ -18,12 +18,13 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <functional.version>0.4.15</functional.version>
-        <falcon.version>0.4.15</falcon.version>
+        <functional.version>0.5.1</functional.version>
+        <falcon.version>0.5.1</falcon.version>
         <lombok.version>1.18.30</lombok.version>
         <swagger-v3.version>2.2.20</swagger-v3.version>
         <swagger-v2.version>1.6.12</swagger-v2.version>
 
+        <jackson.version>2.16.1</jackson.version>
         <junit5.version>5.10.1</junit5.version>
     </properties>
 
@@ -60,27 +61,24 @@
             <artifactId>swagger-annotations</artifactId>
             <version>${swagger-v2.version}</version>
         </dependency>
+
+
         <!--
         ======================
         ****** 测试依赖包 ******
         ======================
         -->
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit5.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.16.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.16.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

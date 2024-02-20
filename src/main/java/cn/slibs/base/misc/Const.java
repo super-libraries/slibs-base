@@ -48,6 +48,9 @@ public class Const {
      * 文件被忽略
      */
     public static final String IGNORE = ".ignore";
+    /*
+     常用文件后缀
+     */
     public static final String GZ = ".gz";
     public static final String TAR_GZ = ".tar.gz";
     public static final String ZIP = ".zip";

@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iofairy.falcon.time.DateTime;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -230,6 +231,22 @@ public class RSTest {
         assertEquals("INTERNAL_SERVER_ERROR", RS.getDefaultErrorStatusCode().toString());
 
         RS.setDefaultEnglish(false);
+    }
+
+    @SneakyThrows
+    @Test
+    void test7() {
+        User user = new User("张三", 20);
+        RS<User> rs = RS.<User>ok().setData(user);
+        assertEquals(rs.toString(), "RS{code='0', msg='成功！', error=null, data=User{name='张三', age=20}}");
+        System.out.println(rs);
+        RS<?> rs1 = RS.error("请求错误！").setError("异常信息");
+        assertEquals(rs1.toString(), "RS{code='500', msg='请求错误！', error='异常信息', data=null}");
+        System.out.println(rs1);
+        RS<User> rs2 = RS.<User>error("没有找到该用户！").setError("异常信息").setData(new User());
+        String rs2Str = MAPPER.writeValueAsString(rs2);
+        assertEquals(rs2Str, "{\"code\":\"500\",\"msg\":\"没有找到该用户！\",\"error\":\"异常信息\",\"data\":{\"name\":null,\"USER_AGE\":0}}");
+        System.out.println(rs2Str);
     }
 
     static class User {

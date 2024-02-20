@@ -2,6 +2,7 @@ package cn.slibs.base;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -12,7 +13,7 @@ import java.io.Serializable;
  */
 @Getter
 public class RS<T> implements Serializable {
-    private static final long serialVersionUID = 99876587956866169L;
+    private static final long serialVersionUID = 358876587956866169L;
     /**
      * 默认成功状态码
      */
@@ -35,18 +36,22 @@ public class RS<T> implements Serializable {
     /**
      * 状态码
      */
-    private String code;
+    public final String code;
     /**
      * 请求信息
      */
-    private String msg;
+    public final String msg;
     /**
      * 完整的错误信息
      */
+    @Setter
+    @Accessors(chain = true)
     private String error;
     /**
      * 请求的数据
      */
+    @Setter
+    @Accessors(chain = true)
     private T data;
 
     public RS() {
@@ -112,16 +117,6 @@ public class RS<T> implements Serializable {
 
     public static <D> RS<D> error(IStatusCode statusCode, String error) {
         return new RS<D>(statusCode).setError(error);
-    }
-
-    public RS<T> setError(String error) {
-        this.error = error;
-        return this;
-    }
-
-    public RS<T> setData(T data) {
-        this.data = data;
-        return this;
     }
 
     public boolean success() {
