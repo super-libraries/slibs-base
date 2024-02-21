@@ -6,8 +6,10 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
+import static com.iofairy.falcon.misc.Preconditions.*;
+
 /**
- * 返回数据对象（Result Or Response）
+ * 响应的数据对象（Result Or Response）
  *
  * @since 0.0.1
  */
@@ -42,44 +44,61 @@ public class RS<T> implements Serializable {
      */
     public final String msg;
     /**
+     * 是否成功（有些情况可能导致此值不正确，具体参照 {@link #adjust()} 方法）
+     */
+    public final boolean success;
+    /**
+     * 请求的数据
+     */
+    public final T data;
+    /**
      * 完整的错误信息
      */
     @Setter
     @Accessors(chain = true)
     private String error;
-    /**
-     * 请求的数据
-     */
-    @Setter
-    @Accessors(chain = true)
-    private T data;
 
+
+    /*==================================
+     ******       RS构造函数       ******
+     ==================================*/
     public RS() {
         this(defaultSuccessStatusCode, null);
     }
 
     public RS(String code, String msg) {
-        this.code = code;
-        this.msg = msg;
+        this(code, msg, null, null);
     }
 
     public RS(String code, String msg, T data) {
+        this(code, msg, data, null);
+    }
+
+    public RS(String code, String msg, T data, String error) {
+        checkHasBlank(args(code, msg), args("code", "msg"));
         this.code = code;
         this.msg = msg;
         this.data = data;
+        this.success = defaultSuccessStatusCode.getCode().equals(this.code);
+        this.error = error;
     }
 
     public RS(IStatusCode statusCode) {
-        this(statusCode, null);
+        this(statusCode, null, null);
     }
 
     public RS(IStatusCode statusCode, T data) {
-        this.code = statusCode.getCode();
-        this.msg = isDefaultEnglish ? statusCode.getMsgEn() : statusCode.getMsg();
-        this.data = data;
+        this(statusCode, data, null);
     }
 
-    public static <D> RS<D> ok() {
+    public RS(IStatusCode statusCode, T data, String error) {
+        this(statusCode.getCode(), isDefaultEnglish ? statusCode.getMsgEn() : statusCode.getMsg(), data, error);
+    }
+
+    /*==================================
+     ******     返回请求成功结果     ******
+     ==================================*/
+    public static RS<?> ok() {
         return new RS<>();
     }
 
@@ -87,45 +106,103 @@ public class RS<T> implements Serializable {
         return new RS<>(defaultSuccessStatusCode, data);
     }
 
-    public static <D> RS<D> success(String msg) {
-        return new RS<>(defaultSuccessStatusCode.getCode(), msg);
-    }
-
     public static <D> RS<D> ok(String msg, D data) {
         return new RS<>(defaultSuccessStatusCode.getCode(), msg, data);
     }
 
-    public static <D> RS<D> error() {
+    public static RS<?> success(String msg) {
+        return new RS<>(defaultSuccessStatusCode.getCode(), msg);
+    }
+
+    /*=======================================
+     ******  返回“不带数据”的请求失败结果  ******
+     =======================================*/
+    public static RS<?> fail() {
         return new RS<>(defaultErrorStatusCode.getCode(), defaultErrorStatusCode.getMsg());
     }
 
-    public static <D> RS<D> error(String msg) {
+    public static RS<?> fail(String msg) {
         return new RS<>(defaultErrorStatusCode.getCode(), msg);
     }
 
-    public static <D> RS<D> error(String code, String msg) {
+    public static RS<?> fail(String code, String msg) {
         return new RS<>(code, msg);
     }
 
-    public static <D> RS<D> error(String code, String msg, String error) {
-        return new RS<D>(code, msg).setError(error);
+    public static RS<?> fail(String code, String msg, String error) {
+        return new RS<>(code, msg, error);
     }
 
-    public static <D> RS<D> error(IStatusCode statusCode) {
-        return new RS<D>(statusCode);
+    public static RS<?> fail(IStatusCode statusCode) {
+        return new RS<>(statusCode);
     }
 
-    public static <D> RS<D> error(IStatusCode statusCode, String error) {
-        return new RS<D>(statusCode).setError(error);
+    public static RS<?> fail(IStatusCode statusCode, String error) {
+        return new RS<>(statusCode, error);
     }
 
-    public boolean success() {
-        return defaultSuccessStatusCode.getCode().equals(code);
+    /*=======================================
+     ******   返回“带数据”的请求失败结果   ******
+     =======================================*/
+    public static <D> RS<D> error(D data) {
+        return new RS<>(defaultErrorStatusCode.getCode(), defaultErrorStatusCode.getMsg(), data);
     }
 
-    public boolean failed() {
-        return !defaultSuccessStatusCode.getCode().equals(code);
+    public static <D> RS<D> error(String msg, D data) {
+        return new RS<>(defaultErrorStatusCode.getCode(), msg, data);
     }
+
+    public static <D> RS<D> error(String code, String msg, D data) {
+        return new RS<>(code, msg, data);
+    }
+
+    public static <D> RS<D> error(String code, String msg, D data, String error) {
+        return new RS<>(code, msg, data, error);
+    }
+
+    public static <D> RS<D> error(IStatusCode statusCode, D data) {
+        return new RS<>(statusCode, data);
+    }
+
+    public static <D> RS<D> error(IStatusCode statusCode, D data, String error) {
+        return new RS<>(statusCode, data, error);
+    }
+
+    public static <D> RS<D> error(RS<?> rs, D data) {
+        return new RS<>(rs.code, rs.msg, data, rs.error);
+    }
+
+
+    /*===========================================
+     ******   校正 RS 中的 success 字段的值   ******
+     ===========================================*/
+
+    /**
+     * 校正（调节）字段 {@link #success} 的值。<br>
+     * <b>注：</b><br>
+     * 有些情况下，如：将 json字符串 转成 RS对象，json未带 {@code success} 字段，导致转换的 {@code success} 总为 {@code true}；
+     * 或 {@link #defaultSuccessStatusCode} 的值被改变，导致原先设置的 {@code success} 不正确。
+     *
+     * @return 校正（调节）后的新的 RS实例
+     */
+    public RS<T> adjust() {
+        return new RS<>(code, msg, data, error);
+    }
+
+    /**
+     * 校正（调节）字段 {@link #success} 的值。<br>
+     * <b>注：</b><br>
+     * 有些情况下，如：将 json字符串 转成 RS对象，json未带 {@code success} 字段，导致转换的 {@code success} 总为 {@code true}；
+     * 或 {@link #defaultSuccessStatusCode} 的值被改变，导致原先设置的 {@code success} 不正确。
+     *
+     * @param rs  RS实例
+     * @param <D> 数据类型
+     * @return 校正（调节）后的新的 RS实例
+     */
+    public static <D> RS<D> adjust(RS<D> rs) {
+        return new RS<>(rs.code, rs.msg, rs.data, rs.error);
+    }
+
 
     @Override
     public String toString() {
@@ -133,6 +210,7 @@ public class RS<T> implements Serializable {
         return "RS{" +
                 "code='" + code + '\'' +
                 ", msg='" + msg + '\'' +
+                ", success=" + success +
                 ", error=" + err +
                 ", data=" + data +
                 '}';
