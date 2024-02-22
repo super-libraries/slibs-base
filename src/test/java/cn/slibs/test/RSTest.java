@@ -148,6 +148,8 @@ public class RSTest {
         assertEquals(soMapRS.toString(), "RS{code='400', msg='失败!', success=true, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
         newRs = soMapRS.adjust();
         assertEquals(newRs.toString(), "RS{code='400', msg='失败!', success=false, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
+        RS<SOMap> adjust = RS.adjust(soMapRS);
+        assertEquals(adjust.toString(), "RS{code='400', msg='失败!', success=false, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
 
 
         json = "{\"code\":\"400\",\"msg\":\"失败!\",\"success\":false,\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOMap_hellod\"," +

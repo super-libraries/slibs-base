@@ -44,7 +44,7 @@ public class RS<T> implements Serializable {
      */
     public final String msg;
     /**
-     * 是否成功（有些情况可能导致此值不正确，具体参照 {@link #adjust()} 方法）
+     * 是否成功（有些极个别的情况可能导致此值不正确，具体参照 {@link #adjust()} 方法）
      */
     public final boolean success;
     /**
@@ -178,10 +178,13 @@ public class RS<T> implements Serializable {
      ===========================================*/
 
     /**
-     * 校正（调节）字段 {@link #success} 的值。<br>
+     * 校正（调节）字段 {@link #success} 的值<br><br>
      * <b>注：</b><br>
-     * 有些情况下，如：将 json字符串 转成 RS对象，json未带 {@code success} 字段，导致转换的 {@code success} 总为 {@code true}；
-     * 或 {@link #defaultSuccessStatusCode} 的值被改变，导致原先设置的 {@code success} 不正确。
+     * <b>以下情况可能导致 {@link #success} 的值不正确：</b><br>
+     * <ul>
+     *     <li> Json串 <b>反序列化</b>成 RS对象，但Json串 <b>缺失 {@code success} 字段</b>，导致转换的 {@link #success} 总为 {@code true}；
+     *     <li> {@link #defaultSuccessStatusCode} 的值被改变，导致原先设置的 {@code success} 不正确。
+     * </ul>
      *
      * @return 校正（调节）后的新的 RS实例
      */
@@ -190,17 +193,20 @@ public class RS<T> implements Serializable {
     }
 
     /**
-     * 校正（调节）字段 {@link #success} 的值。<br>
+     * 校正（调节）字段 {@link #success} 的值<br><br>
      * <b>注：</b><br>
-     * 有些情况下，如：将 json字符串 转成 RS对象，json未带 {@code success} 字段，导致转换的 {@code success} 总为 {@code true}；
-     * 或 {@link #defaultSuccessStatusCode} 的值被改变，导致原先设置的 {@code success} 不正确。
+     * <b>以下情况可能导致 {@link #success} 的值不正确：</b><br>
+     * <ul>
+     *     <li> Json串 <b>反序列化</b>成 RS对象，但Json串 <b>缺失 {@code success} 字段</b>，导致转换的 {@link #success} 总为 {@code true}；
+     *     <li> {@link #defaultSuccessStatusCode} 的值被改变，导致原先设置的 {@code success} 不正确。
+     * </ul>
      *
      * @param rs  RS实例
      * @param <D> 数据类型
      * @return 校正（调节）后的新的 RS实例
      */
     public static <D> RS<D> adjust(RS<D> rs) {
-        return new RS<>(rs.code, rs.msg, rs.data, rs.error);
+        return rs.adjust();
     }
 
 
