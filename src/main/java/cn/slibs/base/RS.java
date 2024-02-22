@@ -1,5 +1,6 @@
 package cn.slibs.base;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -14,6 +15,7 @@ import static com.iofairy.falcon.misc.Preconditions.*;
  * @since 0.0.1
  */
 @Getter
+@Schema(description = "〖响应体〗")
 public class RS<T> implements Serializable {
     private static final long serialVersionUID = 358876587956866169L;
     /**
@@ -38,24 +40,29 @@ public class RS<T> implements Serializable {
     /**
      * 状态码
      */
+    @Schema(description = "〖状态码〗")
     public final String code;
     /**
-     * 请求信息
+     * 响应信息
      */
+    @Schema(description = "〖响应信息〗")
     public final String msg;
     /**
      * 是否成功（有些极个别的情况可能导致此值不正确，具体参照 {@link #adjust()} 方法）
      */
+    @Schema(description = "〖是否成功〗")
     public final boolean success;
     /**
-     * 请求的数据
+     * 响应的数据
      */
+    @Schema(description = "〖数据〗")
     public final T data;
     /**
      * 完整的错误信息
      */
     @Setter
     @Accessors(chain = true)
+    @Schema(description = "〖详细错误信息〗")
     private String error;
 
 
@@ -130,7 +137,7 @@ public class RS<T> implements Serializable {
     }
 
     public static RS<?> fail(String code, String msg, String error) {
-        return new RS<>(code, msg, error);
+        return new RS<>(code, msg, null, error);
     }
 
     public static RS<?> fail(IStatusCode statusCode) {
@@ -138,7 +145,7 @@ public class RS<T> implements Serializable {
     }
 
     public static RS<?> fail(IStatusCode statusCode, String error) {
-        return new RS<>(statusCode, error);
+        return new RS<>(statusCode, null, error);
     }
 
     /*=======================================

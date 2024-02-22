@@ -233,7 +233,7 @@ public class RSTest {
 
         assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, error=null, data=null}");
         assertEquals(ok1.toString(), "RS{code='0', msg='成功！', success=true, error=null, data=null}");
-        assertEquals(error.toString(), "RS{code='60100', msg='数据源连接失败', success=false, error=null, data=完整的异常栈信息……}");
+        assertEquals(error.toString(), "RS{code='60100', msg='数据源连接失败', success=false, error='完整的异常栈信息……', data=null}");
         assertEquals(error1.toString(), "RS{code='10410', msg='请求必填参数为空', success=false, error=null, data=null}");
     }
 
