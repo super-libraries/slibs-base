@@ -17,7 +17,7 @@ public class HttpUtils {
      * @param contentType {@code Content-Type}
      * @return {@code Content-Type}是Json格式则返回 {@code true}，否则返回 {@code false}
      */
-    public static boolean isJsonContentType(String contentType) {
+    public static boolean isJson(String contentType) {
         if (contentType == null) return false;
         contentType = contentType.toLowerCase();
         /*
@@ -37,12 +37,58 @@ public class HttpUtils {
     }
 
     /**
+     * 判断 contentType 是否是文本类型的流式数据（通常比较大）
+     *
+     * @param contentType {@code Content-Type}
+     * @return true or false
+     */
+    public static boolean isTextStream(String contentType) {
+        if (contentType == null) return false;
+        contentType = contentType.toLowerCase();
+
+        return contentType.startsWith("application/json-seq")
+                || contentType.startsWith("application/x-json-stream")
+                || (contentType.startsWith("application/stream+json"))
+                || contentType.startsWith("text/event-stream");
+    }
+
+    /**
+     * 判断 contentType 是否是二进制数据（通常为文件）
+     *
+     * @param contentType {@code Content-Type}
+     * @return true or false
+     */
+    public static boolean isBinary(String contentType) {
+        if (contentType == null) return false;
+        contentType = contentType.toLowerCase();
+
+        return contentType.startsWith("application/octet-stream")
+                || contentType.startsWith("application/pdf")
+                || (contentType.startsWith("video/"))
+                || (contentType.startsWith("audio/"))
+                || contentType.startsWith("image/");
+    }
+
+    /**
+     * 判断 contentType 是否是 {@code multipart} 数据
+     *
+     * @param contentType {@code Content-Type}
+     * @return true or false
+     */
+    public static boolean isMultipart(String contentType) {
+        if (contentType == null) return false;
+        contentType = contentType.toLowerCase();
+
+        return contentType.startsWith("multipart/");
+    }
+
+    /**
      * 判断 contentType 是否是Xml格式的
      *
      * @param contentType {@code Content-Type}
      * @return {@code Content-Type}是Xml格式则返回 {@code true}，否则返回 {@code false}
      */
-    public static boolean isXmlContentType(String contentType) {
+    public static boolean isXml(String contentType) {
         if (contentType == null) return false;
         contentType = contentType.toLowerCase();
 
@@ -59,11 +105,11 @@ public class HttpUtils {
      * @param contentType {@code Content-Type}
      * @return {@code Content-Type}是非文本格式则返回 {@code true}，否则返回 {@code false}
      */
-    public static boolean isNonTextContentType(final String contentType) {
+    public static boolean isNonText(final String contentType) {
         if (S.isBlank(contentType)) return true;
         final String localContentType = contentType.toLowerCase();
 
-        if (isJsonContentType(localContentType) || isXmlContentType(localContentType) || localContentType.startsWith("text/")) return false;
+        if (isJson(localContentType) || isXml(localContentType) || localContentType.startsWith("text/")) return false;
 
         long count = Stream.of("-stream", "+gzip", "+zip", "-zip", "/zip", "/pdf").filter(localContentType::endsWith).count();
 

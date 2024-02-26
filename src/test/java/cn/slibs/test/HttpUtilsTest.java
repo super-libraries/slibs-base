@@ -28,20 +28,20 @@ public class HttpUtilsTest {
         String jsonType13 = "application/JSON";
         String jsonType14 = "model/gltf+Json";
 
-        boolean jsonContentType01 = HttpUtils.isJsonContentType(jsonType01);
-        boolean jsonContentType02 = HttpUtils.isJsonContentType(jsonType02);
-        boolean jsonContentType03 = HttpUtils.isJsonContentType(jsonType03);
-        boolean jsonContentType04 = HttpUtils.isJsonContentType(jsonType04);
-        boolean jsonContentType05 = HttpUtils.isJsonContentType(jsonType05);
-        boolean jsonContentType06 = HttpUtils.isJsonContentType(jsonType06);
-        boolean jsonContentType07 = HttpUtils.isJsonContentType(jsonType07);
-        boolean jsonContentType08 = HttpUtils.isJsonContentType(jsonType08);
-        boolean jsonContentType09 = HttpUtils.isJsonContentType(jsonType09);
-        boolean jsonContentType10 = HttpUtils.isJsonContentType(jsonType10);
-        boolean jsonContentType11 = HttpUtils.isJsonContentType(jsonType11);
-        boolean jsonContentType12 = HttpUtils.isJsonContentType(jsonType12);
-        boolean jsonContentType13 = HttpUtils.isJsonContentType(jsonType13);
-        boolean jsonContentType14 = HttpUtils.isJsonContentType(jsonType14);
+        boolean jsonContentType01 = HttpUtils.isJson(jsonType01);
+        boolean jsonContentType02 = HttpUtils.isJson(jsonType02);
+        boolean jsonContentType03 = HttpUtils.isJson(jsonType03);
+        boolean jsonContentType04 = HttpUtils.isJson(jsonType04);
+        boolean jsonContentType05 = HttpUtils.isJson(jsonType05);
+        boolean jsonContentType06 = HttpUtils.isJson(jsonType06);
+        boolean jsonContentType07 = HttpUtils.isJson(jsonType07);
+        boolean jsonContentType08 = HttpUtils.isJson(jsonType08);
+        boolean jsonContentType09 = HttpUtils.isJson(jsonType09);
+        boolean jsonContentType10 = HttpUtils.isJson(jsonType10);
+        boolean jsonContentType11 = HttpUtils.isJson(jsonType11);
+        boolean jsonContentType12 = HttpUtils.isJson(jsonType12);
+        boolean jsonContentType13 = HttpUtils.isJson(jsonType13);
+        boolean jsonContentType14 = HttpUtils.isJson(jsonType14);
 
 
         assertTrue(jsonContentType01);
@@ -77,19 +77,19 @@ public class HttpUtilsTest {
         String xmlType12 = "application/xxx+json";
         String xmlType13 = "application/XML";
 
-        boolean xmlContentType01 = HttpUtils.isXmlContentType(xmlType01);
-        boolean xmlContentType02 = HttpUtils.isXmlContentType(xmlType02);
-        boolean xmlContentType03 = HttpUtils.isXmlContentType(xmlType03);
-        boolean xmlContentType04 = HttpUtils.isXmlContentType(xmlType04);
-        boolean xmlContentType05 = HttpUtils.isXmlContentType(xmlType05);
-        boolean xmlContentType06 = HttpUtils.isXmlContentType(xmlType06);
-        boolean xmlContentType07 = HttpUtils.isXmlContentType(xmlType07);
-        boolean xmlContentType08 = HttpUtils.isXmlContentType(xmlType08);
-        boolean xmlContentType09 = HttpUtils.isXmlContentType(xmlType09);
-        boolean xmlContentType10 = HttpUtils.isXmlContentType(xmlType10);
-        boolean xmlContentType11 = HttpUtils.isXmlContentType(xmlType11);
-        boolean xmlContentType12 = HttpUtils.isXmlContentType(xmlType12);
-        boolean xmlContentType13 = HttpUtils.isXmlContentType(xmlType13);
+        boolean xmlContentType01 = HttpUtils.isXml(xmlType01);
+        boolean xmlContentType02 = HttpUtils.isXml(xmlType02);
+        boolean xmlContentType03 = HttpUtils.isXml(xmlType03);
+        boolean xmlContentType04 = HttpUtils.isXml(xmlType04);
+        boolean xmlContentType05 = HttpUtils.isXml(xmlType05);
+        boolean xmlContentType06 = HttpUtils.isXml(xmlType06);
+        boolean xmlContentType07 = HttpUtils.isXml(xmlType07);
+        boolean xmlContentType08 = HttpUtils.isXml(xmlType08);
+        boolean xmlContentType09 = HttpUtils.isXml(xmlType09);
+        boolean xmlContentType10 = HttpUtils.isXml(xmlType10);
+        boolean xmlContentType11 = HttpUtils.isXml(xmlType11);
+        boolean xmlContentType12 = HttpUtils.isXml(xmlType12);
+        boolean xmlContentType13 = HttpUtils.isXml(xmlType13);
 
         assertTrue(xmlContentType01);
         assertTrue(xmlContentType02);
@@ -136,31 +136,31 @@ public class HttpUtilsTest {
         String contentType25 = "model/prc";
 
 
-        boolean nonTextType01 = HttpUtils.isNonTextContentType(contentType01);
-        boolean nonTextType02 = HttpUtils.isNonTextContentType(contentType02);
-        boolean nonTextType03 = HttpUtils.isNonTextContentType(contentType03);
-        boolean nonTextType04 = HttpUtils.isNonTextContentType(contentType04);
-        boolean nonTextType05 = HttpUtils.isNonTextContentType(contentType05);
-        boolean nonTextType06 = HttpUtils.isNonTextContentType(contentType06);
-        boolean nonTextType07 = HttpUtils.isNonTextContentType(contentType07);
-        boolean nonTextType08 = HttpUtils.isNonTextContentType(contentType08);
-        boolean nonTextType09 = HttpUtils.isNonTextContentType(contentType09);
-        boolean nonTextType10 = HttpUtils.isNonTextContentType(contentType10);
-        boolean nonTextType11 = HttpUtils.isNonTextContentType(contentType11);
-        boolean nonTextType12 = HttpUtils.isNonTextContentType(contentType12);
-        boolean nonTextType13 = HttpUtils.isNonTextContentType(contentType13);
-        boolean nonTextType14 = HttpUtils.isNonTextContentType(contentType14);
-        boolean nonTextType15 = HttpUtils.isNonTextContentType(contentType15);
-        boolean nonTextType16 = HttpUtils.isNonTextContentType(contentType16);
-        boolean nonTextType17 = HttpUtils.isNonTextContentType(contentType17);
-        boolean nonTextType18 = HttpUtils.isNonTextContentType(contentType18);
-        boolean nonTextType19 = HttpUtils.isNonTextContentType(contentType19);
-        boolean nonTextType20 = HttpUtils.isNonTextContentType(contentType20);
-        boolean nonTextType21 = HttpUtils.isNonTextContentType(contentType21);
-        boolean nonTextType22 = HttpUtils.isNonTextContentType(contentType22);
-        boolean nonTextType23 = HttpUtils.isNonTextContentType(contentType23);
-        boolean nonTextType24 = HttpUtils.isNonTextContentType(contentType24);
-        boolean nonTextType25 = HttpUtils.isNonTextContentType(contentType25);
+        boolean nonTextType01 = HttpUtils.isNonText(contentType01);
+        boolean nonTextType02 = HttpUtils.isNonText(contentType02);
+        boolean nonTextType03 = HttpUtils.isNonText(contentType03);
+        boolean nonTextType04 = HttpUtils.isNonText(contentType04);
+        boolean nonTextType05 = HttpUtils.isNonText(contentType05);
+        boolean nonTextType06 = HttpUtils.isNonText(contentType06);
+        boolean nonTextType07 = HttpUtils.isNonText(contentType07);
+        boolean nonTextType08 = HttpUtils.isNonText(contentType08);
+        boolean nonTextType09 = HttpUtils.isNonText(contentType09);
+        boolean nonTextType10 = HttpUtils.isNonText(contentType10);
+        boolean nonTextType11 = HttpUtils.isNonText(contentType11);
+        boolean nonTextType12 = HttpUtils.isNonText(contentType12);
+        boolean nonTextType13 = HttpUtils.isNonText(contentType13);
+        boolean nonTextType14 = HttpUtils.isNonText(contentType14);
+        boolean nonTextType15 = HttpUtils.isNonText(contentType15);
+        boolean nonTextType16 = HttpUtils.isNonText(contentType16);
+        boolean nonTextType17 = HttpUtils.isNonText(contentType17);
+        boolean nonTextType18 = HttpUtils.isNonText(contentType18);
+        boolean nonTextType19 = HttpUtils.isNonText(contentType19);
+        boolean nonTextType20 = HttpUtils.isNonText(contentType20);
+        boolean nonTextType21 = HttpUtils.isNonText(contentType21);
+        boolean nonTextType22 = HttpUtils.isNonText(contentType22);
+        boolean nonTextType23 = HttpUtils.isNonText(contentType23);
+        boolean nonTextType24 = HttpUtils.isNonText(contentType24);
+        boolean nonTextType25 = HttpUtils.isNonText(contentType25);
 
 
         assertFalse(nonTextType01);
