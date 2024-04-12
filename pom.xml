@@ -6,7 +6,7 @@
 
     <groupId>cn.slibs</groupId>
     <artifactId>slibs-base</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
 
     <packaging>jar</packaging>
     <name>A Java base library</name>
@@ -18,9 +18,10 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <functional.version>0.5.1</functional.version>
-        <falcon.version>0.5.1</falcon.version>
-        <lombok.version>1.18.30</lombok.version>
+        <functional.version>0.5.3</functional.version>
+        <falcon.version>0.5.3</falcon.version>
+
+        <lombok.version>1.18.32</lombok.version>
         <swagger-v3.version>2.2.20</swagger-v3.version>
         <swagger-v2.version>1.6.12</swagger-v2.version>
 
@@ -205,6 +206,13 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>/META-INF</targetPath>
+            </resource>
+        </resources>
     </build>
 
 
