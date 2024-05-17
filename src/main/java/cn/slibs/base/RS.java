@@ -1,11 +1,13 @@
 package cn.slibs.base;
 
+import com.iofairy.falcon.time.DateTime;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 
 import static com.iofairy.falcon.misc.Preconditions.*;
 
@@ -18,6 +20,7 @@ import static com.iofairy.falcon.misc.Preconditions.*;
 @Schema(description = "〖响应体〗")
 public class RS<T> implements Serializable {
     private static final long serialVersionUID = 358876587956866169L;
+
     /**
      * 默认成功状态码
      */
@@ -31,12 +34,28 @@ public class RS<T> implements Serializable {
     @Setter
     private static IStatusCode defaultErrorStatusCode = StatusCode.INTERNAL_SERVER_ERROR;
     /**
+     * 响应体中是否带时间
+     */
+    @Getter
+    @Setter
+    private static boolean showTime = false;
+    /**
      * IStatusCode 默认是否显示英文消息
      */
     @Getter
     @Setter
     private static boolean isDefaultEnglish = false;
 
+    /**
+     * 时间格式化
+     */
+    private final static DateTimeFormatter DTF = DateTimeFormatter.ofPattern("y-MM-dd HH:mm:ss.SSS '['VV xxx']'");
+
+    /*###################################################################################
+     ------------------------------------------------------------------------------------
+     *******************************        成员变量        ******************************
+     ------------------------------------------------------------------------------------
+     ###################################################################################*/
     /**
      * 状态码
      */
@@ -57,6 +76,12 @@ public class RS<T> implements Serializable {
      */
     @Schema(description = "〖数据〗")
     public final T data;
+    /**
+     * 响应的时间
+     */
+    @Getter
+    @Schema(description = "〖响应的时间〗")
+    private String time;
     /**
      * 完整的错误信息
      */
@@ -88,6 +113,9 @@ public class RS<T> implements Serializable {
         this.data = data;
         this.success = defaultSuccessStatusCode.getCode().equals(this.code);
         this.error = error;
+        if (showTime) {
+            this.time = DateTime.nowDate().format(DTF);
+        }
     }
 
     public RS(IStatusCode statusCode) {
@@ -224,6 +252,7 @@ public class RS<T> implements Serializable {
                 "code='" + code + '\'' +
                 ", msg='" + msg + '\'' +
                 ", success=" + success +
+                ", time=" + time +
                 ", error=" + err +
                 ", data=" + data +
                 '}';

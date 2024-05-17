@@ -43,8 +43,8 @@ public class RSTest {
         System.out.println(MAPPER.writeValueAsString(ok));      // {"code":"0","msg":"成功！","error":null,"data":null}
         System.out.println(ok);                                 // RS{code='0', msg='成功！', error=null, data=null}
 
-        assertEquals(MAPPER.writeValueAsString(ok), "{\"code\":\"0\",\"msg\":\"成功！\",\"success\":true,\"data\":null,\"error\":null}");
-        assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, error=null, data=null}");
+        assertEquals(MAPPER.writeValueAsString(ok), "{\"code\":\"0\",\"msg\":\"成功！\",\"success\":true,\"data\":null,\"time\":null,\"error\":null}");
+        assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, time=null, error=null, data=null}");
 
         System.out.println("==================================");
         ok = RS.ok(DateTime.parseDate("2024-01-01 00:51:44").get());
@@ -52,8 +52,8 @@ public class RSTest {
         System.out.println(ok);                                 // RS{code='0', msg='成功！', error=null, data=Sun Oct 09 16:27:07 CST 2022}
         System.out.println("是否成功：" + ok.success);          // 是否成功：true
 
-        assertEquals(MAPPER.writeValueAsString(ok), "{\"code\":\"0\",\"msg\":\"成功！\",\"success\":true,\"data\":\"2024-01-01 00:51:44\",\"error\":null}");
-        assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, error=null, data=Mon Jan 01 00:51:44 CST 2024}");
+        assertEquals(MAPPER.writeValueAsString(ok), "{\"code\":\"0\",\"msg\":\"成功！\",\"success\":true,\"data\":\"2024-01-01 00:51:44\",\"time\":null,\"error\":null}");
+        assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, time=null, error=null, data=Mon Jan 01 00:51:44 CST 2024}");
         assertTrue(ok.success);
 
         System.out.println("==================================");
@@ -65,8 +65,8 @@ public class RSTest {
         System.out.println(newOk);                              // RS{code='200', msg='成功！', error=null, data=null}
         System.out.println("是否成功：" + newOk.success);       // 是否成功：true
 
-        assertEquals(MAPPER.writeValueAsString(newOk), "{\"code\":\"200\",\"msg\":\"成功！\",\"success\":true,\"data\":null,\"error\":null}");
-        assertEquals(newOk.toString(), "RS{code='200', msg='成功！', success=true, error=null, data=null}");
+        assertEquals(MAPPER.writeValueAsString(newOk), "{\"code\":\"200\",\"msg\":\"成功！\",\"success\":true,\"data\":null,\"time\":null,\"error\":null}");
+        assertEquals(newOk.toString(), "RS{code='200', msg='成功！', success=true, time=null, error=null, data=null}");
         assertTrue(newOk.success);
 
         RS.setDefaultSuccessStatusCode(StatusCode.OK);
@@ -96,31 +96,31 @@ public class RSTest {
         System.out.println(MAPPER.writeValueAsString(error));
         System.out.println(error);
 
-        assertEquals(MAPPER.writeValueAsString(error), "{\"code\":\"500\",\"msg\":\"服务内部错误，请联系管理员\",\"success\":false,\"data\":null,\"error\":null}");
-        assertEquals(error.toString(), "RS{code='500', msg='服务内部错误，请联系管理员', success=false, error=null, data=null}");
+        assertEquals(MAPPER.writeValueAsString(error), "{\"code\":\"500\",\"msg\":\"服务内部错误，请联系管理员\",\"success\":false,\"data\":null,\"time\":null,\"error\":null}");
+        assertEquals(error.toString(), "RS{code='500', msg='服务内部错误，请联系管理员', success=false, time=null, error=null, data=null}");
 
         System.out.println("==================================");
         ok = RS.ok(soHashMap);
         System.out.println(MAPPER.writeValueAsString(ok));
         System.out.println(ok);
 
-        assertEquals(MAPPER.writeValueAsString(ok), "{\"code\":\"0\",\"msg\":\"成功！\",\"success\":true,\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOHashMap_hellod\",\"createTime\":\"2024-01-01 01:09:12\",\"e\":\"SOHashMap_helloe\"},\"error\":null}");
-        assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, error=null, data={a=helloa, b=hellob, d=SOHashMap_hellod, createTime=Mon Jan 01 01:09:12 CST 2024, e=SOHashMap_helloe}}");
+        assertEquals(MAPPER.writeValueAsString(ok), "{\"code\":\"0\",\"msg\":\"成功！\",\"success\":true,\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOHashMap_hellod\",\"createTime\":\"2024-01-01 01:09:12\",\"e\":\"SOHashMap_helloe\"},\"time\":null,\"error\":null}");
+        assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, time=null, error=null, data={a=helloa, b=hellob, d=SOHashMap_hellod, createTime=Mon Jan 01 01:09:12 CST 2024, e=SOHashMap_helloe}}");
 
         System.out.println("==================================");
         ok = RS.ok(soMap);
         System.out.println(MAPPER.writeValueAsString(ok));
         System.out.println(ok);
 
-        assertEquals(MAPPER.writeValueAsString(ok), "{\"code\":\"0\",\"msg\":\"成功！\",\"success\":true,\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOMap_hellod\",\"createTime\":\"2024-01-01 01:09:12\",\"e\":\"SOMap_helloe\",\"map\":{\"mapkey1\":\"value1\"}},\"error\":null}");
-        assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=Mon Jan 01 01:09:12 CST 2024, e=SOMap_helloe, map={mapkey1=value1}}}");
+        assertEquals(MAPPER.writeValueAsString(ok), "{\"code\":\"0\",\"msg\":\"成功！\",\"success\":true,\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOMap_hellod\",\"createTime\":\"2024-01-01 01:09:12\",\"e\":\"SOMap_helloe\",\"map\":{\"mapkey1\":\"value1\"}},\"time\":null,\"error\":null}");
+        assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, time=null, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=Mon Jan 01 01:09:12 CST 2024, e=SOMap_helloe, map={mapkey1=value1}}}");
 
     }
 
     @SneakyThrows
     @Test
     void testJsonAndRSExchange1() {
-        String json = "{\"code\":\"0\",\"msg\":\"success!\",\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOMap_hellod\"," +
+        String json = "{\"code\":\"0\",\"msg\":\"success!\",\"time\":\"2022-08-03 09:47:52\",\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOMap_hellod\"," +
                 "\"createTime\":\"2022-08-03 09:47:52\",\"e\":\"SOMap_helloe\",\"map\":{\"mapkey1\":\"value1\"}}}";
         /*
          readValue过程：
@@ -136,20 +136,23 @@ public class RSTest {
         RS<SOMap> soMapRS = MAPPER.readValue(json, new TypeReference<RS<SOMap>>() {
         });
         System.out.println(soMapRS);
-        assertEquals(soMapRS.toString(), "RS{code='0', msg='success!', success=true, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
+        assertEquals(soMapRS.toString(), "RS{code='0', msg='success!', success=true, time=2022-08-03 09:47:52, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
         RS<SOMap> newRs = soMapRS.adjust();
-        assertEquals(newRs.toString(), "RS{code='0', msg='success!', success=true, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
+        System.out.println(newRs);
+        assertEquals(newRs.toString(), "RS{code='0', msg='success!', success=true, time=null, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
 
         json = "{\"code\":\"400\",\"msg\":\"失败!\",\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOMap_hellod\"," +
                 "\"createTime\":\"2022-08-03 09:47:52\",\"e\":\"SOMap_helloe\",\"map\":{\"mapkey1\":\"value1\"}}}";
         soMapRS = MAPPER.readValue(json, new TypeReference<RS<SOMap>>() {
         });
         System.out.println(soMapRS);
-        assertEquals(soMapRS.toString(), "RS{code='400', msg='失败!', success=true, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
+        assertEquals(soMapRS.toString(), "RS{code='400', msg='失败!', success=true, time=null, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
         newRs = soMapRS.adjust();
-        assertEquals(newRs.toString(), "RS{code='400', msg='失败!', success=false, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
+        System.out.println(newRs);
+        assertEquals(newRs.toString(), "RS{code='400', msg='失败!', success=false, time=null, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
         RS<SOMap> adjust = RS.adjust(soMapRS);
-        assertEquals(adjust.toString(), "RS{code='400', msg='失败!', success=false, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
+        System.out.println(adjust);
+        assertEquals(adjust.toString(), "RS{code='400', msg='失败!', success=false, time=null, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
 
 
         json = "{\"code\":\"400\",\"msg\":\"失败!\",\"success\":false,\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOMap_hellod\"," +
@@ -157,7 +160,7 @@ public class RSTest {
         soMapRS = MAPPER.readValue(json, new TypeReference<RS<SOMap>>() {
         });
         System.out.println(soMapRS);
-        assertEquals(soMapRS.toString(), "RS{code='400', msg='失败!', success=false, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
+        assertEquals(soMapRS.toString(), "RS{code='400', msg='失败!', success=false, time=null, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
 
         System.out.println("code: " + soMapRS.getCode());
         System.out.println("msg: " + soMapRS.getMsg());
@@ -167,13 +170,13 @@ public class RSTest {
         assertEquals(soMapRS.getCode(), "400");
         assertEquals(soMapRS.getMsg(), "失败!");
         assertEquals(soMapRS.getData().toString(), "{a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}");
-        assertFalse(soMapRS.success);
+        // assertFalse(soMapRS.success);
 
         JsonNode jsonNode = MAPPER.readTree(json);
         RS<SOMap> soMapRS1 = MAPPER.convertValue(jsonNode, new TypeReference<RS<SOMap>>() {
         });
         System.out.println(soMapRS1);
-        assertEquals(soMapRS1.toString(), "RS{code='400', msg='失败!', success=false, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
+        assertEquals(soMapRS1.toString(), "RS{code='400', msg='失败!', success=false, time=null, error=null, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}}");
 
     }
 
@@ -185,7 +188,7 @@ public class RSTest {
         String json1 = MAPPER.writeValueAsString(rs);
         System.out.println("RS to Json: " + json1);
 
-        assertEquals(json1, "{\"code\":\"500\",\"msg\":\"服务内部错误，请联系管理员\",\"success\":false,\"data\":{\"name\":\"John\",\"USER_AGE\":10},\"error\":null}");
+        assertEquals(json1, "{\"code\":\"500\",\"msg\":\"服务内部错误，请联系管理员\",\"success\":false,\"data\":{\"name\":\"John\",\"USER_AGE\":10},\"time\":null,\"error\":null}");
         RS<User> userRS = MAPPER.readValue(json1, new TypeReference<RS<User>>() {
         });
         System.out.println("json to RS: " + userRS);
@@ -194,7 +197,7 @@ public class RSTest {
         User data = userRS.getData();
         System.out.println("data: " + data);
 
-        assertEquals(userRS.toString(), "RS{code='500', msg='服务内部错误，请联系管理员', success=false, error=null, data=User{name='John', age=10}}");
+        assertEquals(userRS.toString(), "RS{code='500', msg='服务内部错误，请联系管理员', success=false, time=null, error=null, data=User{name='John', age=10}}");
         assertEquals(userRS.getCode(), "500");
         assertEquals(userRS.getMsg(), "服务内部错误，请联系管理员");
         assertEquals(data.toString(), "User{name='John', age=10}");
@@ -204,14 +207,14 @@ public class RSTest {
         json1 = MAPPER.writeValueAsString(ok);
         System.out.println("RS to Json: " + json1);
 
-        assertEquals(json1, "{\"code\":\"0\",\"msg\":\"成功！\",\"success\":true,\"data\":{\"name\":\"John\",\"USER_AGE\":10},\"error\":null}");
+        assertEquals(json1, "{\"code\":\"0\",\"msg\":\"成功！\",\"success\":true,\"data\":{\"name\":\"John\",\"USER_AGE\":10},\"time\":null,\"error\":null}");
         userRS = MAPPER.readValue(json1, new TypeReference<RS<User>>() {
         });
         System.out.println("json to RS: " + userRS);
         System.out.println("code: " + userRS.getCode());
         System.out.println("msg: " + userRS.getMsg());
 
-        assertEquals(userRS.toString(), "RS{code='0', msg='成功！', success=true, error=null, data=User{name='John', age=10}}");
+        assertEquals(userRS.toString(), "RS{code='0', msg='成功！', success=true, time=null, error=null, data=User{name='John', age=10}}");
         assertEquals(userRS.getCode(), "0");
         assertEquals(userRS.getMsg(), "成功！");
         assertEquals(data.toString(), "User{name='John', age=10}");
@@ -231,10 +234,10 @@ public class RSTest {
         System.out.println(error);      // RS{code='60100', msg='数据源连接失败', error='完整的异常栈信息……', data=null}
         System.out.println(error1);     // RS{code='10410', msg='请求必填参数为空', error=null, data=null}
 
-        assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, error=null, data=null}");
-        assertEquals(ok1.toString(), "RS{code='0', msg='成功！', success=true, error=null, data=null}");
-        assertEquals(error.toString(), "RS{code='60100', msg='数据源连接失败', success=false, error='完整的异常栈信息……', data=null}");
-        assertEquals(error1.toString(), "RS{code='10410', msg='请求必填参数为空', success=false, error=null, data=null}");
+        assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, time=null, error=null, data=null}");
+        assertEquals(ok1.toString(), "RS{code='0', msg='成功！', success=true, time=null, error=null, data=null}");
+        assertEquals(error.toString(), "RS{code='60100', msg='数据源连接失败', success=false, time=null, error='完整的异常栈信息……', data=null}");
+        assertEquals(error1.toString(), "RS{code='10410', msg='请求必填参数为空', success=false, time=null, error=null, data=null}");
     }
 
     @SneakyThrows
@@ -244,16 +247,16 @@ public class RSTest {
         RS<User> userRS = RS.ok(user);
         System.out.println(userRS);
 
-        assertEquals(userRS.toString(), "RS{code='0', msg='成功！', success=true, error=null, data=User{name='null', age=0}}");
+        assertEquals(userRS.toString(), "RS{code='0', msg='成功！', success=true, time=null, error=null, data=User{name='null', age=0}}");
 
         RS.setDefaultEnglish(true);
         userRS = RS.ok(user);
         System.out.println(userRS);
-        assertEquals(userRS.toString(), "RS{code='0', msg='OK!', success=true, error=null, data=User{name='null', age=0}}");
+        assertEquals(userRS.toString(), "RS{code='0', msg='OK!', success=true, time=null, error=null, data=User{name='null', age=0}}");
 
         RS<?> error = RS.fail(StatusCode.EMAIL_VERIFI_CODE_IS_INCORRECT);
         System.out.println(error);
-        assertEquals(error.toString(), "RS{code='10132', msg='Email Verifi Code Is Incorrect', success=false, error=null, data=null}");
+        assertEquals(error.toString(), "RS{code='10132', msg='Email Verifi Code Is Incorrect', success=false, time=null, error=null, data=null}");
 
         System.out.println(RS.isDefaultEnglish());
         System.out.println(RS.getDefaultSuccessStatusCode());
@@ -270,14 +273,14 @@ public class RSTest {
     void test7() {
         User user = new User("张三", 20);
         RS<User> rs = RS.ok(user);
-        assertEquals(rs.toString(), "RS{code='0', msg='成功！', success=true, error=null, data=User{name='张三', age=20}}");
+        assertEquals(rs.toString(), "RS{code='0', msg='成功！', success=true, time=null, error=null, data=User{name='张三', age=20}}");
         System.out.println(rs);
         RS<?> rs1 = RS.fail("请求错误！").setError("异常信息");
-        assertEquals(rs1.toString(), "RS{code='500', msg='请求错误！', success=false, error='异常信息', data=null}");
+        assertEquals(rs1.toString(), "RS{code='500', msg='请求错误！', success=false, time=null, error='异常信息', data=null}");
         System.out.println(rs1);
         RS<User> rs2 = RS.error("没有找到该用户！", new User()).setError("异常信息");
         String rs2Str = MAPPER.writeValueAsString(rs2);
-        assertEquals(rs2Str, "{\"code\":\"500\",\"msg\":\"没有找到该用户！\",\"success\":false,\"data\":{\"name\":null,\"USER_AGE\":0},\"error\":\"异常信息\"}");
+        assertEquals(rs2Str, "{\"code\":\"500\",\"msg\":\"没有找到该用户！\",\"success\":false,\"data\":{\"name\":null,\"USER_AGE\":0},\"time\":null,\"error\":\"异常信息\"}");
         System.out.println(rs2Str);
     }
 
@@ -286,6 +289,21 @@ public class RSTest {
     void test8() {
         RS<?> fail = RS.fail();
         System.out.println(MAPPER.writeValueAsString(fail));
+    }
+
+    @SneakyThrows
+    @Test
+    void testAjust() {
+        String json = "{\"code\":\"400\",\"msg\":\"失败!\",\"time\":\"2022-08-03 09:47:52\",\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOMap_hellod\"," +
+                "\"createTime\":\"2022-08-03 09:47:52\",\"e\":\"SOMap_helloe\",\"map\":{\"mapkey1\":\"value1\"}}}";
+        RS<SOMap> soMapRS = MAPPER.readValue(json, new TypeReference<RS<SOMap>>() {
+        });
+        System.out.println(soMapRS);
+        RS.setShowTime(true);
+        RS<SOMap> adjust = soMapRS.adjust();
+        System.out.println(adjust);
+        System.out.println(MAPPER.writeValueAsString(adjust));
+        RS.setShowTime(false);
     }
 
     @Test
