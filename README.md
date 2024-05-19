@@ -8,13 +8,13 @@ slibs basic library
 <dependency>
     <groupId>cn.slibs</groupId>
     <artifactId>slibs-base</artifactId>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
 </dependency>
 ```
 
 ### Gradle
 ```
-implementation 'cn.slibs:slibs-base:0.0.8'
+implementation 'cn.slibs:slibs-base:0.0.9'
 ```
 
 
