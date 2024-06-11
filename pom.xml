@@ -6,7 +6,7 @@
 
     <groupId>cn.slibs</groupId>
     <artifactId>slibs-base</artifactId>
-    <version>0.0.9</version>
+    <version>0.0.10</version>
 
     <packaging>jar</packaging>
     <name>A Java base library</name>
@@ -18,12 +18,12 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <functional.version>0.5.4</functional.version>
-        <falcon.version>0.5.4</falcon.version>
+        <functional.version>0.5.5</functional.version>
+        <falcon.version>0.5.5</falcon.version>
 
         <lombok.version>1.18.32</lombok.version>
-        <swagger-v3.version>2.2.20</swagger-v3.version>
-        <swagger-v2.version>1.6.12</swagger-v2.version>
+        <swagger-v3.version>2.2.22</swagger-v3.version>
+        <swagger-v2.version>1.6.14</swagger-v2.version>
 
         <jackson.version>2.16.1</jackson.version>
         <junit5.version>5.10.1</junit5.version>
