@@ -7,6 +7,7 @@ package cn.slibs.base;
  */
 public interface IStatusCode {
     String getCode();
+    int getCodeNo();
     String getMsg();
     String getMsgEn();
 
