@@ -135,7 +135,7 @@ public class RS<T> implements Serializable {
     /*==================================
      ******     返回请求成功结果     ******
      ==================================*/
-    public static RS<?> ok() {
+    public static <D> RS<D> ok() {
         return new RS<>();
     }
 
@@ -147,34 +147,34 @@ public class RS<T> implements Serializable {
         return new RS<>(defaultSuccessStatusCode.getCode(), msg, data);
     }
 
-    public static RS<?> success(String msg) {
+    public static <D> RS<D> success(String msg) {
         return new RS<>(defaultSuccessStatusCode.getCode(), msg);
     }
 
     /*=======================================
      ******  返回“不带数据”的请求失败结果  ******
      =======================================*/
-    public static RS<?> fail() {
+    public static <D> RS<D> fail() {
         return new RS<>(defaultErrorStatusCode.getCode(), defaultErrorStatusCode.getMsg());
     }
 
-    public static RS<?> fail(String msg) {
+    public static <D> RS<D> fail(String msg) {
         return new RS<>(defaultErrorStatusCode.getCode(), msg);
     }
 
-    public static RS<?> fail(String code, String msg) {
+    public static <D> RS<D> fail(String code, String msg) {
         return new RS<>(code, msg);
     }
 
-    public static RS<?> fail(String code, String msg, String error) {
+    public static <D> RS<D> fail(String code, String msg, String error) {
         return new RS<>(code, msg, null, error);
     }
 
-    public static RS<?> fail(IStatusCode statusCode) {
+    public static <D> RS<D> fail(IStatusCode statusCode) {
         return new RS<>(statusCode);
     }
 
-    public static RS<?> fail(IStatusCode statusCode, String error) {
+    public static <D> RS<D> fail(IStatusCode statusCode, String error) {
         return new RS<>(statusCode, null, error);
     }
 
