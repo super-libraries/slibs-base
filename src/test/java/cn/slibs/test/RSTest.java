@@ -1,5 +1,6 @@
 package cn.slibs.test;
 
+import cn.slibs.base.RI;
 import cn.slibs.base.map.SOHashMap;
 import cn.slibs.base.map.SOMap;
 import cn.slibs.base.IStatusCode;
@@ -287,8 +288,13 @@ public class RSTest {
     @SneakyThrows
     @Test
     void test8() {
-        RS<?> fail = RS.fail();
-        System.out.println(MAPPER.writeValueAsString(fail));
+        RS<String> fail = RS.fail();
+        System.out.println(MAPPER.writeValueAsString(fail));    // {"code":"500","msg":"服务内部错误，请联系管理员","success":false,"data":null,"time":null,"error":null}
+        RI<?> ok = RI.ok();
+        System.out.println(MAPPER.writeValueAsString(ok));      // {"code":0,"msg":"成功！","success":true,"data":null,"time":null,"error":null}
+        RI.setShowTime(true);
+        RI<?> fail1 = RI.fail();
+        System.out.println(MAPPER.writeValueAsString(fail1));   // {"code":500,"msg":"服务内部错误，请联系管理员","success":false,"data":null,"time":"2024-09-02 14:02:45.907 [Asia/Shanghai +08:00]","error":null}
     }
 
     @SneakyThrows
@@ -317,6 +323,113 @@ public class RSTest {
             assertEquals(e.getMessage(), "None of these parameters [code, msg] can be blank! ");
         }
 
+    }
+
+    @SneakyThrows
+    @Test
+    void testJsonAndRIExchange1() {
+        String json = "{\"code\":\"0\",\"msg\":\"success!\",\"time\":\"2022-08-03 09:47:52\",\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOMap_hellod\",\"createTime\":\"2022-08-03 09:47:52\",\"e\":\"SOMap_helloe\",\"map\":{\"mapkey1\":\"value1\"}}}";
+        /*
+         readValue过程：
+         1、先创建一个 RI<SOMap> 的对象
+         2、再利用反射对这个对象的字段进行赋值
+         可能导致的问题：
+         创建 RI<SOMap> 对象时，调用的是无参的构造函数，无参构造函数默认是设置“成功”的状态码。导致 success 字段为 true，如果 json中没有包含 success 字段，
+         则 success 不会被改变，一直为 true。
+         解决：
+         第一种：调用 adjust() 方法进行校正
+         第二种：json串中带上 success 字段
+         */
+        RI<SOMap> soMapRI = MAPPER.readValue(json, new TypeReference<RI<SOMap>>() {
+        });
+        System.out.println(soMapRI);
+        assertEquals(soMapRI.toString(), "RI{code=0, msg='success!', success=true, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}, time='2022-08-03 09:47:52', error=null}");
+        RI<SOMap> newRs = soMapRI.adjust();
+        System.out.println(newRs);
+        assertEquals(newRs.toString(), "RI{code=0, msg='success!', success=true, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}, time='null', error=null}");
+
+        json = "{\"code\":\"400\",\"msg\":\"失败!\",\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOMap_hellod\",\"createTime\":\"2022-08-03 09:47:52\",\"e\":\"SOMap_helloe\",\"map\":{\"mapkey1\":\"value1\"}}}";
+        soMapRI = MAPPER.readValue(json, new TypeReference<RI<SOMap>>() {
+        });
+        System.out.println(soMapRI);
+        assertEquals(soMapRI.toString(), "RI{code=400, msg='失败!', success=true, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}, time='null', error=null}");
+        newRs = soMapRI.adjust();
+        System.out.println(newRs);
+        assertEquals(newRs.toString(), "RI{code=400, msg='失败!', success=false, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}, time='null', error=null}");
+        RI<SOMap> adjust = RI.adjust(soMapRI);
+        System.out.println(adjust);
+        assertEquals(adjust.toString(), "RI{code=400, msg='失败!', success=false, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}, time='null', error=null}");
+
+
+        json = "{\"code\":400,\"msg\":\"失败!\",\"success\":false,\"data\":{\"a\":\"helloa\",\"b\":\"hellob\",\"d\":\"SOMap_hellod\",\"createTime\":\"2022-08-03 09:47:52\",\"e\":\"SOMap_helloe\",\"map\":{\"mapkey1\":\"value1\"}}}";
+        soMapRI = MAPPER.readValue(json, new TypeReference<RI<SOMap>>() {
+        });
+        System.out.println(soMapRI);
+        assertEquals(soMapRI.toString(), "RI{code=400, msg='失败!', success=false, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}, time='null', error=null}");
+
+        System.out.println("code: " + soMapRI.getCode());
+        System.out.println("msg: " + soMapRI.getMsg());
+        System.out.println("data: " + soMapRI.getData());
+        System.out.println("success: " + soMapRI.success);
+
+        assertEquals(soMapRI.getCode(), 400);
+        assertEquals(soMapRI.getMsg(), "失败!");
+        assertEquals(soMapRI.getData().toString(), "{a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}");
+        // assertFalse(soMapRI.success);
+
+        JsonNode jsonNode = MAPPER.readTree(json);
+        RI<SOMap> soMapRI1 = MAPPER.convertValue(jsonNode, new TypeReference<RI<SOMap>>() {
+        });
+        System.out.println(soMapRI1);
+        assertEquals(soMapRI1.toString(), "RI{code=400, msg='失败!', success=false, data={a=helloa, b=hellob, d=SOMap_hellod, createTime=2022-08-03 09:47:52, e=SOMap_helloe, map={mapkey1=value1}}, time='null', error=null}");
+
+    }
+
+    @SneakyThrows
+    @Test
+    void testJsonAndRIExchange2() {
+        String json = "{\"msg\":\"服务内部错误，请联系管理员\",\"success\":false,\"data\":{\"name\":\"John\",\"USER_AGE\":10},\"time\":null,\"error\":null}";
+        RI<User> ri = MAPPER.readValue(json, new TypeReference<RI<User>>() {
+        });
+        System.out.println("未指定code反序列化：" + ri);
+        assertEquals(ri.toString(), "RI{code=0, msg='服务内部错误，请联系管理员', success=false, data=User{name='John', age=10}, time='null', error=null}");
+
+        RI<User> rs = RI.error(StatusCode.INTERNAL_SERVER_ERROR, new User("John", 10));
+
+        String json1 = MAPPER.writeValueAsString(rs);
+        System.out.println("RI to Json: " + json1);
+
+        assertEquals(json1, "{\"code\":500,\"msg\":\"服务内部错误，请联系管理员\",\"success\":false,\"data\":{\"name\":\"John\",\"USER_AGE\":10},\"time\":null,\"error\":null}");
+        RI<User> userRI = MAPPER.readValue(json1, new TypeReference<RI<User>>() {
+        });
+        System.out.println("json to RI: " + userRI);
+        System.out.println("code: " + userRI.getCode());
+        System.out.println("msg: " + userRI.getMsg());
+        User data = userRI.getData();
+        System.out.println("data: " + data);
+
+        assertEquals(userRI.toString(), "RI{code=500, msg='服务内部错误，请联系管理员', success=false, data=User{name='John', age=10}, time='null', error=null}");
+        assertEquals(userRI.getCode(), 500);
+        assertEquals(userRI.getMsg(), "服务内部错误，请联系管理员");
+        assertEquals(data.toString(), "User{name='John', age=10}");
+        assertFalse(userRI.success);
+
+        RI<User> ok = RI.ok(new User("John", 10));
+        json1 = MAPPER.writeValueAsString(ok);
+        System.out.println("RI to Json: " + json1);
+
+        assertEquals(json1, "{\"code\":0,\"msg\":\"成功！\",\"success\":true,\"data\":{\"name\":\"John\",\"USER_AGE\":10},\"time\":null,\"error\":null}");
+        userRI = MAPPER.readValue(json1, new TypeReference<RI<User>>() {
+        });
+        System.out.println("json to RI: " + userRI);
+        System.out.println("code: " + userRI.getCode());
+        System.out.println("msg: " + userRI.getMsg());
+
+        assertEquals(userRI.toString(), "RI{code=0, msg='成功！', success=true, data=User{name='John', age=10}, time='null', error=null}");
+        assertEquals(userRI.getCode(), 0);
+        assertEquals(userRI.getMsg(), "成功！");
+        assertEquals(data.toString(), "User{name='John', age=10}");
+        assertTrue(userRI.success);
     }
 
     static class User {
@@ -372,6 +485,11 @@ public class RSTest {
         @Override
         public String getCode() {
             return code;
+        }
+
+        @Override
+        public int getCodeNo() {
+            return 0;
         }
 
         @Override
