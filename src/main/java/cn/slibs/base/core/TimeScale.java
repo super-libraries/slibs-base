@@ -4,7 +4,7 @@ import com.iofairy.top.G;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -65,16 +65,16 @@ public enum TimeScale {
     public static final Map<Integer, TimeScale> OFTEN1_INDEX_TS;
     public static final Map<Integer, TimeScale> OFTEN2_INDEX_TS;
     public static final Map<Integer, TimeScale> UNIT_INDEX_TS;
-    public static final Map<String, TimeScale> EN_NAME_TS;
-    public static final Map<String, TimeScale> CH_NAME_TS;
+    public static final Map<String, TimeScale>  EN_NAME_TS;
+    public static final Map<String, TimeScale>  CH_NAME_TS;
 
     static {
-        Map<Integer, TimeScale> valueMap = new HashMap<>();
-        Map<Integer, TimeScale> often1IndexMap = new HashMap<>();
-        Map<Integer, TimeScale> often2IndexMap = new HashMap<>();
-        Map<Integer, TimeScale> unitIndexMap = new HashMap<>();
-        Map<String, TimeScale>  enNameMap = new HashMap<>();
-        Map<String, TimeScale>  chNameMap = new HashMap<>();
+        Map<Integer, TimeScale> valueMap        = new LinkedHashMap<>();
+        Map<Integer, TimeScale> often1IndexMap  = new LinkedHashMap<>();
+        Map<Integer, TimeScale> often2IndexMap  = new LinkedHashMap<>();
+        Map<Integer, TimeScale> unitIndexMap    = new LinkedHashMap<>();
+        Map<String, TimeScale> enNameMap        = new LinkedHashMap<>();
+        Map<String, TimeScale> chNameMap        = new LinkedHashMap<>();
         for (TimeScale ts : values()) {
             valueMap.put(ts.value, ts);
             often1IndexMap.put(ts.often1Index, ts);
@@ -82,9 +82,13 @@ public enum TimeScale {
             unitIndexMap.put(ts.unitIndex, ts);
             enNameMap.put(ts.enName, ts);
             chNameMap.put(ts.chName, ts);
+            chNameMap.put(ts.chName.replaceAll("[钟小个]", "").replace("天", "日"), ts);
+            if (ts == MIN15) {
+                enNameMap.put("quarter", MIN15);
+                chNameMap.put("刻", MIN15);
+            }
         }
-        chNameMap.put("日", DAY);
-        chNameMap.put("刻", MIN15);
+
 
         INDEX_TS        = Collections.unmodifiableMap(valueMap);
         OFTEN1_INDEX_TS = Collections.unmodifiableMap(often1IndexMap);

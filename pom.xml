@@ -18,8 +18,8 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <functional.version>0.5.10</functional.version>
-        <falcon.version>0.5.10</falcon.version>
+        <functional.version>0.5.11</functional.version>
+        <falcon.version>0.5.11</falcon.version>
 
         <lombok.version>1.18.32</lombok.version>
         <swagger-v3.version>2.2.22</swagger-v3.version>
