@@ -80,7 +80,6 @@ public class RS<T> implements Serializable {
     /**
      * 响应的时间
      */
-    @Getter
     @Schema(description = "〖响应的时间〗")
     private String time;
     /**

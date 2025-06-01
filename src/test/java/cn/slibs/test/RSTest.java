@@ -294,6 +294,7 @@ public class RSTest {
         System.out.println(MAPPER.writeValueAsString(ok));      // {"code":0,"msg":"成功！","success":true,"data":null,"time":null,"error":null}
         RI.setShowTime(true);
         RI<?> fail1 = RI.fail();
+        System.out.println("时间参数：" + fail1.getTime());
         System.out.println(MAPPER.writeValueAsString(fail1));   // {"code":500,"msg":"服务内部错误，请联系管理员","success":false,"data":null,"time":"2024-09-02 14:02:45.907 [Asia/Shanghai +08:00]","error":null}
     }
 
@@ -307,7 +308,8 @@ public class RSTest {
         System.out.println(soMapRS);
         RS.setShowTime(true);
         RS<SOMap> adjust = soMapRS.adjust();
-        System.out.println(adjust);
+        System.out.println(adjust.getTime());
+        System.out.println("时间参数：" + adjust);
         System.out.println(MAPPER.writeValueAsString(adjust));
         RS.setShowTime(false);
     }
