@@ -75,6 +75,8 @@ public class TimeScaleTest {
 
     @Test
     void testTimeScaleTable() {
+        System.out.println("=================================================================================\n");
+
         System.out.println("● 序号与时间粒度关系表\n" + TimeScale.TS_TABLE);
         assertEquals(TimeScale.TS_TABLE,
                 "-------------------------------------------------------------------------\n" +
@@ -116,6 +118,8 @@ public class TimeScaleTest {
                 "| 32: MONTH_DAY6  | 32: MONTH_DAY3  | 32: HOUR4       | 47: MONTH_DAY6  |\n" +
                 "| 33: YEAR        | 33: MONTH_DAY6  | 33: HOUR5       | 50: YEAR        |\n" +
                 "-------------------------------------------------------------------------");
+
+        System.out.println("\n=================================================================================");
     }
 
 }

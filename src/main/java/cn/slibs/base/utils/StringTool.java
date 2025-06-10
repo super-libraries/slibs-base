@@ -1,7 +1,12 @@
 package cn.slibs.base.utils;
 
 import cn.slibs.base.misc.Const;
+import com.iofairy.except.GeneralException;
 import com.iofairy.top.S;
+
+import java.util.Objects;
+
+import static com.iofairy.falcon.misc.Preconditions.*;
 
 /**
  * string工具类
@@ -19,10 +24,13 @@ public class StringTool {
      * @return 转换编码后的字符串
      */
     public static String convertEncode(String str, String fromCharset, String toCharset) {
+        if (S.isEmpty(str) || Objects.equals(fromCharset, toCharset)) return str;
+        checkHasBlank(args(fromCharset, toCharset), args("fromCharset", "toCharset"));
+
         try {
-            return str == null ? null : new String(str.getBytes(fromCharset), toCharset);
+            return new String(str.getBytes(fromCharset), toCharset);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new GeneralException(e);
         }
     }
 
@@ -53,6 +61,7 @@ public class StringTool {
      * @return 查询条数的sql语句
      */
     public static String toCountSql(String sql) {
+        checkBlank(sql, args("sql"));
         return "select count(*) cnt from ( \n\t" + sql + "\n) t";
     }
 

@@ -322,7 +322,7 @@ public class RSTest {
             System.out.println(e.getClass());
             System.out.println(e.getMessage());
             assertSame(e.getClass(), ConditionsNotMetException.class);
-            assertEquals(e.getMessage(), "None of these parameters [code, msg] can be blank! ");
+            assertEquals(e.getMessage(), "None of these parameters [code, msg] can be blank! But parameter [msg] is blank! ");
         }
 
     }
