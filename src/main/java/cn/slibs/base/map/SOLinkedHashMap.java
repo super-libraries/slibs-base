@@ -113,7 +113,11 @@ public class SOLinkedHashMap extends LinkedHashMap<String, Object> {
 
     @SuppressWarnings("unchecked")
     public <T> DateTime<T> getDateTime(String key) {
-        return (DateTime<T>) get(key);
+        try {
+            return (DateTime<T>) get(key);
+        } catch (Exception e){
+            return DateTime.of((T) get(key));
+        }
     }
 
     public BigDecimal getBigDecimal(String key) {

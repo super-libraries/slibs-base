@@ -8,6 +8,8 @@ import com.iofairy.falcon.time.DateTime;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,9 +21,15 @@ public class SOMapTest {
         SOMap map = SOMap.of().putData("date", dateTime);
         DateTime<LocalDateTime> date = map.getDateTime("date");
 
-        System.out.println(date);
+        System.out.println("date: " + date);
 
         assertEquals(date.toString(), "2023-01-01 11:00:15.003");
+
+        SOMap soMap = SOMap.of().putData("date", new Date(), "calendar", Calendar.getInstance());
+        DateTime<Date> date1 = soMap.getDateTime("date");
+        DateTime<Calendar> date2 = soMap.getDateTime("calendar");
+        System.out.println("date1: " + date1);
+        System.out.println("date2: " + date2);
     }
 
     @Test
