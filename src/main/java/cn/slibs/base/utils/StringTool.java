@@ -6,7 +6,7 @@ import com.iofairy.top.S;
 
 import java.util.Objects;
 
-import static com.iofairy.falcon.misc.Preconditions.*;
+import static com.iofairy.validator.Preconditions.*;
 
 /**
  * string工具类

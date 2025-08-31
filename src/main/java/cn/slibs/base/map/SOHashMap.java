@@ -1,5 +1,6 @@
 package cn.slibs.base.map;
 
+import com.iofairy.top.G;
 import com.iofairy.top.O;
 
 import java.util.Map;
@@ -39,15 +40,7 @@ public class SOHashMap extends SOMap {
      * @since 0.0.2
      */
     public static SOHashMap of(Object... kvs) {
-        O.verifyMapKV(true, true, false, kvs);
-
-        SOHashMap soMap = new SOHashMap();
-        for (int i = 0; i < kvs.length; ) {
-            soMap.put((String) kvs[i], kvs[i + 1]);
-            i += 2;
-        }
-
-        return soMap;
+        return new SOHashMap().putData(kvs);
     }
 
 
@@ -70,6 +63,7 @@ public class SOHashMap extends SOMap {
      */
     @Override
     public SOHashMap putData(Object... kvs) {
+        if (G.isEmpty(kvs)) return this;
         O.verifyMapKV(true, true, false, kvs);
 
         for (int i = 0; i < kvs.length; ) {
@@ -80,8 +74,9 @@ public class SOHashMap extends SOMap {
     }
 
     @Override
-    public SOHashMap putData(Map<String, Object> map) {
+    public SOHashMap putData(Map<? extends String, Object> map) {
         putAll(map);
         return this;
     }
+
 }

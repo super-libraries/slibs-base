@@ -11,7 +11,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iofairy.except.ConditionsNotMetException;
-import com.iofairy.falcon.time.DateTime;
+import com.iofairy.time.DateTime;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -48,7 +48,7 @@ public class RSTest {
         assertEquals(ok.toString(), "RS{code='0', msg='成功！', success=true, time=null, error=null, data=null}");
 
         System.out.println("==================================");
-        ok = RS.ok(DateTime.parseDate("2024-01-01 00:51:44").get());
+        ok = RS.ok(DateTime.parse("2024-01-01 00:51:44").toDate());
         System.out.println(MAPPER.writeValueAsString(ok));      // {"code":"0","msg":"成功！","error":null,"data":"2022-10-09 16:27:07"}
         System.out.println(ok);                                 // RS{code='0', msg='成功！', error=null, data=Sun Oct 09 16:27:07 CST 2022}
         System.out.println("是否成功：" + ok.success);          // 是否成功：true
@@ -82,7 +82,7 @@ public class RSTest {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("a", "helloa");
         hashMap.put("b", "hellob");
-        hashMap.put("createTime", DateTime.parseDate("2024-01-01 01:09:12").get());
+        hashMap.put("createTime", DateTime.parse("2024-01-01 01:09:12").toDate());
 
         SOMap soMap = SOMap.of()
                 .putData(hashMap)

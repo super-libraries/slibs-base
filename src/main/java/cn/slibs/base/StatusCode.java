@@ -72,6 +72,15 @@ public enum StatusCode implements IStatusCode {
     LOOP_DETECTED("508", 508, "服务器在处理请求时检测到无限循环", "Loop Detected"),
     NOT_EXTENDED("510", 510, "服务器需要进一步扩展请求才能满足它", "Not Extended"),
     NETWORK_AUTHENTICATION_REQUIRED("511", 511, "需要网络身份验证", "Network Authentication Required"),
+    /*
+     自定义的数据库相关错误码
+     */
+    DATA_IS_MISSING("601", 601, "数据缺失", "Data Is Missing"),
+    ILLEGAL_QUERY_RESULT("602", 602, "非法的查询结果", "Illegal Query Result"),
+    DS_CONNECTION_FAILURE("603", 603, "数据源连接失败", "Datasource Connection Failure"),
+    DS_CONNECTION_TIMEOUT("604", 604, "数据源连接超时", "Datasource Connection Timeout"),
+    DS_LOGIN_FAILURE("605", 605, "数据源登录失败", "Datasource Login Failure"),
+    DS_TYPE_UNSUPPORTED("606", 606, "不支持的数据源类型", "Unsupported Data Source Type"),
 
     /*
      * user-defined status codes
@@ -263,6 +272,7 @@ public enum StatusCode implements IStatusCode {
     FAILED_TO_EXECUTE_DATABASE_PROCEDURE("60108", 60108, "执行数据库存储过程失败", "Failed To Execute Database Procedure"),
     ERROR_ABOUT_JDBC_AND_DATABASE("60109", 60109, "JDBC与数据库执行相关错误", "Error About JDBC And Database"),
     NO_DATA_IN_THIS_CONDITION("60110", 60110, "当前条件下未查询到相关数据", "No Data In This Condition"),
+    DS_DATA_IS_MISSING("60111", 60111, "数据缺失", "Data Is Missing"),
     ENGINE_INTERNAL_ERROR("90100", 90100, "引擎内部出错", "Engine Internal Error"),
     NULL_POINTER_ERROR("90200", 90200, "空指针异常", "Null Pointer Error"),
     COMMAND_EXECUTE_FAIL("90300", 90300, "命令执行失败", "Command Execute Fail"),

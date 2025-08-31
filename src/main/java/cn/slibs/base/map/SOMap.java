@@ -1,6 +1,7 @@
 package cn.slibs.base.map;
 
-import com.iofairy.falcon.time.DateTime;
+import com.iofairy.time.DateTime;
+import com.iofairy.top.G;
 import com.iofairy.top.O;
 
 import java.math.BigDecimal;
@@ -45,15 +46,7 @@ public class SOMap extends HashMap<String, Object> {
      * @since 0.0.2
      */
     public static SOMap of(Object... kvs) {
-        O.verifyMapKV(true, true, false, kvs);
-
-        SOMap soMap = new SOMap();
-        for (int i = 0; i < kvs.length; ) {
-            soMap.put((String) kvs[i], kvs[i + 1]);
-            i += 2;
-        }
-
-        return soMap;
+        return new SOMap().putData(kvs);
     }
 
     public static SOMap of(Map<? extends String, ?> map) {
@@ -73,6 +66,7 @@ public class SOMap extends HashMap<String, Object> {
      * @since 0.0.2
      */
     public SOMap putData(Object... kvs) {
+        if (G.isEmpty(kvs)) return this;
         O.verifyMapKV(true, true, false, kvs);
 
         for (int i = 0; i < kvs.length; ) {
@@ -82,9 +76,15 @@ public class SOMap extends HashMap<String, Object> {
         return this;
     }
 
-    public SOMap putData(Map<String, Object> map) {
+    public SOMap putData(Map<? extends String, Object> map) {
         putAll(map);
         return this;
+    }
+
+    public void removeKey(String... keys) {
+        if (G.isEmpty(keys)) return;
+        for (String key : keys)
+            remove(key);
     }
 
     /*
@@ -107,12 +107,11 @@ public class SOMap extends HashMap<String, Object> {
         return (Calendar) get(key);
     }
 
-    @SuppressWarnings("unchecked")
-    public <T> DateTime<T> getDateTime(String key) {
+    public DateTime getDateTime(String key) {
         try {
-            return (DateTime<T>) get(key);
-        } catch (Exception e){
-            return DateTime.of((T) get(key));
+            return (DateTime) get(key);
+        } catch (Exception e) {
+            return DateTime.of(get(key));
         }
     }
 

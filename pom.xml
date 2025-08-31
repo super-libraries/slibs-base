@@ -6,7 +6,7 @@
 
     <groupId>cn.slibs</groupId>
     <artifactId>slibs-base</artifactId>
-    <version>0.1.2</version>
+    <version>0.2.0</version>
 
     <packaging>jar</packaging>
     <name>A Java base library</name>
@@ -18,14 +18,14 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <functional.version>0.5.12</functional.version>
-        <falcon.version>0.5.12</falcon.version>
+        <functional.version>0.6.0</functional.version>
+        <falcon.version>0.6.0</falcon.version>
 
-        <lombok.version>1.18.36</lombok.version>
-        <swagger-v3.version>2.2.22</swagger-v3.version>
-        <swagger-v2.version>1.6.14</swagger-v2.version>
+        <lombok.version>1.18.38</lombok.version>
+        <swagger-v3.version>2.2.34</swagger-v3.version>
+        <swagger-v2.version>1.6.16</swagger-v2.version>
 
-        <jackson.version>2.16.1</jackson.version>
+        <jackson.version>2.19.2</jackson.version>
         <junit5.version>5.10.1</junit5.version>
     </properties>
 
@@ -105,20 +105,19 @@
         <developerConnection>scm:git:git@github.com:super-libraries/slibs-base.git</developerConnection>
     </scm>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>oss</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>oss</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
+            </plugin>
+
             <!-- compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

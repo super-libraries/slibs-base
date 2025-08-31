@@ -1,16 +1,15 @@
 package cn.slibs.base;
 
-import com.iofairy.falcon.time.DateTime;
+import com.iofairy.time.DateTime;
+import com.iofairy.time.DateTimes;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.format.DateTimeFormatter;
 
-import static com.iofairy.falcon.misc.Preconditions.args;
-import static com.iofairy.falcon.misc.Preconditions.checkHasBlank;
+import static com.iofairy.validator.Preconditions.*;
 
 /**
  * 响应的数据对象（Result Or Response）<br>
@@ -48,10 +47,6 @@ public class RI<T> implements Serializable {
     @Setter
     private static boolean isDefaultEnglish = false;
 
-    /**
-     * 时间格式化
-     */
-    private final static DateTimeFormatter DTF = DateTimeFormatter.ofPattern("y-MM-dd HH:mm:ss.SSS '['VV xxx']'");
 
     /*###################################################################################
      ------------------------------------------------------------------------------------
@@ -116,7 +111,7 @@ public class RI<T> implements Serializable {
         this.success = defaultSuccessStatusCode.getCodeNo() == this.code;
         this.error = error;
         if (showTime) {
-            this.time = DateTime.nowDate().format(DTF);
+            this.time = DateTime.now().format(DateTimes.DTF_MS_ZONE_OFFSET);
         }
     }
 

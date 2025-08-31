@@ -1,40 +1,38 @@
 package cn.slibs.test;
 
-
 import cn.slibs.base.map.SOHashMap;
 import cn.slibs.base.map.SOLinkedHashMap;
 import cn.slibs.base.map.SOMap;
-import com.iofairy.falcon.time.DateTime;
+import com.iofairy.time.DateTime;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SOMapTest {
 
     @Test
     void testSOMap1() {
-        DateTime<LocalDateTime> dateTime = DateTime.parse("2023/1/01 11:00:15.003");
+        DateTime dateTime = DateTime.parse("2023/1/01 11:00:15.003");
         SOMap map = SOMap.of().putData("date", dateTime);
-        DateTime<LocalDateTime> date = map.getDateTime("date");
+        DateTime date = map.getDateTime("date");
 
         System.out.println("date: " + date);
 
         assertEquals(date.toString(), "2023-01-01 11:00:15.003");
 
         SOMap soMap = SOMap.of().putData("date", new Date(), "calendar", Calendar.getInstance());
-        DateTime<Date> date1 = soMap.getDateTime("date");
-        DateTime<Calendar> date2 = soMap.getDateTime("calendar");
+        DateTime date1 = soMap.getDateTime("date");
+        DateTime date2 = soMap.getDateTime("calendar");
         System.out.println("date1: " + date1);
         System.out.println("date2: " + date2);
     }
 
     @Test
     void testSOMap2() {
-        DateTime<LocalDateTime> dateTime = DateTime.parse("2023/1/01 11:00:15.003");
+        DateTime dateTime = DateTime.parse("2023/1/01 11:00:15.003");
 
         SOMap map1 = SOMap.of();
         SOMap map2 = SOMap.of(null, "null Key's Value", null, null, "a", dateTime, "b", 2);
@@ -70,7 +68,7 @@ public class SOMapTest {
 
     @Test
     void testSOHashMap1() {
-        DateTime<LocalDateTime> dateTime = DateTime.parse("2023/1/01 11:00:15.003");
+        DateTime dateTime = DateTime.parse("2023/1/01 11:00:15.003");
 
         SOHashMap map1 = SOHashMap.of();
         SOHashMap map2 = SOHashMap.of(null, "null Key's Value", null, null, "a", dateTime, "b", 2);
@@ -106,7 +104,7 @@ public class SOMapTest {
 
     @Test
     void testSOLinkedHashMap1() {
-        DateTime<LocalDateTime> dateTime = DateTime.parse("2023/1/01 11:00:15.003");
+        DateTime dateTime = DateTime.parse("2023/1/01 11:00:15.003");
 
         SOLinkedHashMap map1 = SOLinkedHashMap.of();
         SOLinkedHashMap map2 = SOLinkedHashMap.of("a", dateTime, "b", 2);
