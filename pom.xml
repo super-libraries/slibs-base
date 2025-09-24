@@ -6,7 +6,7 @@
 
     <groupId>cn.slibs</groupId>
     <artifactId>slibs-base</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.2</version>
 
     <packaging>jar</packaging>
     <name>A Java base library</name>
