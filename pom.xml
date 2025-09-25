@@ -22,7 +22,7 @@
         <falcon.version>0.6.0</falcon.version>
 
         <lombok.version>1.18.38</lombok.version>
-        <swagger-v3.version>2.2.34</swagger-v3.version>
+        <swagger-v3.version>2.2.37</swagger-v3.version>
         <swagger-v2.version>1.6.16</swagger-v2.version>
 
         <jackson.version>2.19.2</jackson.version>
@@ -52,9 +52,16 @@
         ****** swagger注解依赖包 ******
         =============================
         -->
+        <!--
+        对于io.swagger.core.v3来说：
+        其实swagger-annotations与swagger-annotations-jakarta没有任何区别（内部包与类完全一致），只是为了和io.swagger.core.v3中的其他组件命名保持一致而已。
+        ======
+        这里引用最新的带 -jakarta 标准的包。
+        如果其他项目引用了 io.swagger.core.v3:swagger-annotations，最好排除掉一个，避免内部包名冲突。
+        -->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
             <version>${swagger-v3.version}</version>
         </dependency>
         <dependency>
