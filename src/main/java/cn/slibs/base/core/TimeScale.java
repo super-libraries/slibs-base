@@ -1,5 +1,7 @@
 package cn.slibs.base.core;
 
+import cn.slibs.base.map.EasyLinkedHashMap;
+import com.iofairy.annos.Beta;
 import com.iofairy.falcon.map.MapKit;
 import com.iofairy.top.G;
 import com.iofairy.top.S;
@@ -12,41 +14,47 @@ import java.util.*;
  *
  * @since 0.1.2
  */
+@Beta
 public enum TimeScale {
     SECOND     ( 0,   0,   0,   0,    ChronoUnit.SECONDS,   1,   "yyyyMMddHHmmss",      "second",    "秒"),
-    SECOND5    ( 1,  12,   1,   1,    ChronoUnit.SECONDS,   5,   "yyyyMMddHHmmss",     "second5",    "5秒"),
-    SECOND10   ( 2,  13,   2,   2,    ChronoUnit.SECONDS,  10,   "yyyyMMddHHmmss",    "second10",    "10秒"),
-    SECOND15   ( 3,  14,   3,   3,    ChronoUnit.SECONDS,  15,   "yyyyMMddHHmmss",    "second15",    "15秒"),
-    SECOND30   ( 4,  15,   4,   4,    ChronoUnit.SECONDS,  30,   "yyyyMMddHHmmss",    "second30",    "30秒"),
-    MIN        ( 5,   1,   5,  10,    ChronoUnit.MINUTES,   1,     "yyyyMMddHHmm",         "min",    "分"),
-    MIN2       ( 6,  16,  29,  11,    ChronoUnit.MINUTES,   2,     "yyyyMMddHHmm",        "min2",    "2分钟"),
-    MIN3       ( 7,  17,  30,  12,    ChronoUnit.MINUTES,   3,     "yyyyMMddHHmm",        "min3",    "3分钟"),
-    MIN4       ( 8,  18,  31,  13,    ChronoUnit.MINUTES,   4,     "yyyyMMddHHmm",        "min4",    "4分钟"),
-    MIN5       ( 9,   2,   6,  14,    ChronoUnit.MINUTES,   5,     "yyyyMMddHHmm",        "min5",    "5分钟"),
-    MIN10      (10,   3,   7,  15,    ChronoUnit.MINUTES,  10,     "yyyyMMddHHmm",       "min10",    "10分钟"),
-    MIN15      (11,   4,   8,  16,    ChronoUnit.MINUTES,  15,     "yyyyMMddHHmm",       "min15",    "15分钟"),
-    MIN30      (12,   5,   9,  17,    ChronoUnit.MINUTES,  30,     "yyyyMMddHHmm",       "min30",    "30分钟"),
-    HOUR       (13,   6,  10,  20,      ChronoUnit.HOURS,   1,       "yyyyMMddHH",        "hour",    "时"),
-    HOUR2      (14,  19,  11,  21,      ChronoUnit.HOURS,   2,       "yyyyMMddHH",       "hour2",    "2小时"),
-    HOUR3      (15,  20,  12,  22,      ChronoUnit.HOURS,   3,       "yyyyMMddHH",       "hour3",    "3小时"),
-    HOUR4      (16,  21,  32,  23,      ChronoUnit.HOURS,   4,       "yyyyMMddHH",       "hour4",    "4小时"),
-    HOUR5      (17,  22,  33,  24,      ChronoUnit.HOURS,   5,       "yyyyMMddHH",       "hour5",    "5小时"),
-    HOUR6      (18,  23,  13,  25,      ChronoUnit.HOURS,   6,       "yyyyMMddHH",       "hour6",    "6小时"),
-    HOUR12     (19,  24,  14,  26,      ChronoUnit.HOURS,  12,       "yyyyMMddHH",      "hour12",    "12小时"),
-    DAY        (20,   7,  15,  30,       ChronoUnit.DAYS,   1,         "yyyyMMdd",         "day",    "天"),
-    DAY5       (21,  25,  16,  31,       ChronoUnit.DAYS,   5,         "yyyyMMdd",        "day5",    "5天"),
-    DAY10      (22,  26,  17,  32,       ChronoUnit.DAYS,  10,         "yyyyMMdd",       "day10",    "10天"),
-    DAY15      (23,  27,  18,  33,       ChronoUnit.DAYS,  15,         "yyyyMMdd",       "day15",    "15天"),
-    WEEK       (24,   8,  19,  34,      ChronoUnit.WEEKS,   1,         "yyyyMMdd",        "week",    "周"),
-    MONTH      (25,   9,  20,  40,     ChronoUnit.MONTHS,   1,           "yyyyMM",       "month",    "月"),
-    MONTH2     (26,  28,  21,  41,     ChronoUnit.MONTHS,   2,           "yyyyMM",      "month2",    "2个月"),
-    MONTH3     (27,  29,  22,  42,     ChronoUnit.MONTHS,   3,           "yyyyMM",      "month3",    "3个月"),
-    MONTH6     (28,  30,  23,  43,     ChronoUnit.MONTHS,   6,           "yyyyMM",      "month6",    "6个月"),
-    MONTH_DAY  (29,  10,  24,  44,     ChronoUnit.MONTHS,   1,         "yyyyMM01",    "monthDay",    "月01日"),
-    MONTH_DAY2 (30,  31,  25,  45,     ChronoUnit.MONTHS,   2,         "yyyyMM01",   "monthDay2",    "2个月01日"),
-    MONTH_DAY3 (31,  32,  26,  46,     ChronoUnit.MONTHS,   3,         "yyyyMM01",   "monthDay3",    "3个月01日"),
-    MONTH_DAY6 (32,  33,  27,  47,     ChronoUnit.MONTHS,   6,         "yyyyMM01",   "monthDay6",    "6个月01日"),
-    YEAR       (33,  11,  28,  50,      ChronoUnit.YEARS,   1,             "yyyy",        "year",    "年"),
+    SECOND2    ( 1,  12,   1,   1,    ChronoUnit.SECONDS,   2,   "yyyyMMddHHmmss",     "second2",    "2秒"),
+    SECOND3    ( 2,  13,   2,   2,    ChronoUnit.SECONDS,   3,   "yyyyMMddHHmmss",     "second3",    "3秒"),
+    SECOND5    ( 3,  14,   3,   3,    ChronoUnit.SECONDS,   5,   "yyyyMMddHHmmss",     "second5",    "5秒"),
+    SECOND10   ( 4,  15,   4,   4,    ChronoUnit.SECONDS,  10,   "yyyyMMddHHmmss",    "second10",    "10秒"),
+    SECOND15   ( 5,  16,   5,   5,    ChronoUnit.SECONDS,  15,   "yyyyMMddHHmmss",    "second15",    "15秒"),
+    SECOND30   ( 6,  17,   6,   6,    ChronoUnit.SECONDS,  30,   "yyyyMMddHHmmss",    "second30",    "30秒"),
+    MIN        ( 7,   1,   7,  10,    ChronoUnit.MINUTES,   1,     "yyyyMMddHHmm",         "min",    "分"),
+    MIN2       ( 8,  18,   8,  11,    ChronoUnit.MINUTES,   2,     "yyyyMMddHHmm",        "min2",    "2分钟"),
+    MIN3       ( 9,  19,   9,  12,    ChronoUnit.MINUTES,   3,     "yyyyMMddHHmm",        "min3",    "3分钟"),
+    MIN4       (10,  20,  33,  13,    ChronoUnit.MINUTES,   4,     "yyyyMMddHHmm",        "min4",    "4分钟"),
+    MIN5       (11,   2,  10,  14,    ChronoUnit.MINUTES,   5,     "yyyyMMddHHmm",        "min5",    "5分钟"),
+    MIN10      (12,   3,  11,  15,    ChronoUnit.MINUTES,  10,     "yyyyMMddHHmm",       "min10",    "10分钟"),
+    MIN15      (13,   4,  12,  16,    ChronoUnit.MINUTES,  15,     "yyyyMMddHHmm",       "min15",    "15分钟"),
+    MIN30      (14,   5,  13,  17,    ChronoUnit.MINUTES,  30,     "yyyyMMddHHmm",       "min30",    "30分钟"),
+    HOUR       (15,   6,  14,  20,      ChronoUnit.HOURS,   1,       "yyyyMMddHH",        "hour",    "时"),
+    HOUR2      (16,  21,  15,  21,      ChronoUnit.HOURS,   2,       "yyyyMMddHH",       "hour2",    "2小时"),
+    HOUR3      (17,  22,  16,  22,      ChronoUnit.HOURS,   3,       "yyyyMMddHH",       "hour3",    "3小时"),
+    HOUR4      (18,  23,  34,  23,      ChronoUnit.HOURS,   4,       "yyyyMMddHH",       "hour4",    "4小时"),
+    HOUR5      (19,  24,  35,  24,      ChronoUnit.HOURS,   5,       "yyyyMMddHH",       "hour5",    "5小时"),
+    HOUR6      (20,  25,  17,  25,      ChronoUnit.HOURS,   6,       "yyyyMMddHH",       "hour6",    "6小时"),
+    HOUR12     (21,  26,  18,  26,      ChronoUnit.HOURS,  12,       "yyyyMMddHH",      "hour12",    "12小时"),
+    DAY        (22,   7,  19,  30,       ChronoUnit.DAYS,   1,         "yyyyMMdd",         "day",    "天"),
+    DAY2       (23,  27,  20,  31,       ChronoUnit.DAYS,   2,         "yyyyMMdd",        "day2",    "2天"),
+    DAY3       (24,  28,  21,  32,       ChronoUnit.DAYS,   3,         "yyyyMMdd",        "day3",    "3天"),
+    DAY5       (25,  29,  22,  33,       ChronoUnit.DAYS,   5,         "yyyyMMdd",        "day5",    "5天"),
+    DAY10      (26,  30,  36,  34,       ChronoUnit.DAYS,  10,         "yyyyMMdd",       "day10",    "10天"),
+    DAY15      (27,  31,  37,  35,       ChronoUnit.DAYS,  15,         "yyyyMMdd",       "day15",    "15天"),
+    WEEK       (28,   8,  23,  36,      ChronoUnit.WEEKS,   1,         "yyyyMMdd",        "week",    "周"),
+    WEEK2      (29,  32,  38,  37,      ChronoUnit.WEEKS,   2,         "yyyyMMdd",       "week2",    "2周"),
+    MONTH      (30,   9,  24,  40,     ChronoUnit.MONTHS,   1,           "yyyyMM",       "month",    "月"),
+    MONTH2     (31,  33,  25,  41,     ChronoUnit.MONTHS,   2,           "yyyyMM",      "month2",    "2个月"),
+    MONTH3     (32,  34,  26,  42,     ChronoUnit.MONTHS,   3,           "yyyyMM",      "month3",    "3个月"),
+    MONTH6     (33,  35,  27,  43,     ChronoUnit.MONTHS,   6,           "yyyyMM",      "month6",    "6个月"),
+    MONTH_DAY  (34,  10,  28,  44,     ChronoUnit.MONTHS,   1,         "yyyyMM01",    "monthDay",    "月01日"),
+    MONTH_DAY2 (35,  36,  29,  45,     ChronoUnit.MONTHS,   2,         "yyyyMM01",   "monthDay2",    "2个月01日"),
+    MONTH_DAY3 (36,  37,  30,  46,     ChronoUnit.MONTHS,   3,         "yyyyMM01",   "monthDay3",    "3个月01日"),
+    MONTH_DAY6 (37,  38,  31,  47,     ChronoUnit.MONTHS,   6,         "yyyyMM01",   "monthDay6",    "6个月01日"),
+    YEAR       (38,  11,  32,  50,      ChronoUnit.YEARS,   1,             "yyyy",        "year",    "年"),
     IRREGULAR  (-1,  -1,  -1,  -1,                  null,  -1,               null,   "irregular",    "不定时"),
     ;
 
@@ -73,12 +81,13 @@ public enum TimeScale {
     public static final String TS_TABLE;
 
     static {
-        Map<Integer, TimeScale> valueMap        = new LinkedHashMap<>();
-        Map<Integer, TimeScale> often1IndexMap  = new LinkedHashMap<>();
-        Map<Integer, TimeScale> often2IndexMap  = new LinkedHashMap<>();
-        Map<Integer, TimeScale> unitIndexMap    = new LinkedHashMap<>();
-        Map<String, TimeScale> enNameMap        = new LinkedHashMap<>();
-        Map<String, TimeScale> chNameMap        = new LinkedHashMap<>();
+        EasyLinkedHashMap<Integer, TimeScale> valueMap       = new EasyLinkedHashMap<>();
+        EasyLinkedHashMap<Integer, TimeScale> often1IndexMap = new EasyLinkedHashMap<>();
+        EasyLinkedHashMap<Integer, TimeScale> often2IndexMap = new EasyLinkedHashMap<>();
+        EasyLinkedHashMap<Integer, TimeScale> unitIndexMap   = new EasyLinkedHashMap<>();
+        EasyLinkedHashMap<String, TimeScale> enNameMap       = new EasyLinkedHashMap<>();
+        EasyLinkedHashMap<String, TimeScale> chNameMap       = new EasyLinkedHashMap<>();
+
         for (TimeScale ts : values()) {
             valueMap.put(ts.value, ts);
             often1IndexMap.put(ts.often1Index, ts);
@@ -86,10 +95,47 @@ public enum TimeScale {
             unitIndexMap.put(ts.unitIndex, ts);
             enNameMap.put(ts.enName, ts);
             chNameMap.put(ts.chName, ts);
-            chNameMap.put(ts.chName.replaceAll("[钟小个]", "").replace("天", "日"), ts);
+
+            // “月”中的【个】不要去除，去除反而容易有歧义
+            chNameMap.put(ts.chName.replaceAll("[钟小]", "").replace("天", "日"), ts);
+
             if (ts == MIN15) {
-                enNameMap.put("quarter", MIN15);
-                chNameMap.put("刻", MIN15);
+                enNameMap.put("quarter", ts);
+                chNameMap.putData("刻", ts, "每刻", ts, "每刻钟", ts, "1刻钟", ts, "一刻钟", ts);
+            }
+            if (ts == HOUR2) {
+                chNameMap.putData("时辰", ts, "每时辰", ts, "每个时辰", ts, "1时辰", ts, "1个时辰", ts, "一时辰", ts, "一个时辰", ts);
+            }
+
+            if (ts.timeAmountUnit == 1) {
+                chNameMap.put("每" + ts.chName, ts);
+                if (ts.chronoUnit != ChronoUnit.MONTHS) {
+                    chNameMap.put("1" + ts.chName, ts);
+                }
+
+                switch (ts.chronoUnit) {
+                    case MINUTES:
+                        chNameMap.putData("每分钟", ts, "1分钟", ts);
+                        break;
+                    case HOURS:
+                        chNameMap.putData("每小时", ts, "1小时", ts);
+                        break;
+                    case DAYS:
+                        chNameMap.putData("每日", ts, "1日", ts);
+                        break;
+                    case MONTHS:
+                        if (ts == MONTH) {
+                            chNameMap.putData("每个月", ts, "1个月", ts);
+                        } else {    // MONTH_DAY
+                            chNameMap.putData("每个月01日", ts, "1个月01日", ts);
+                        }
+                        break;
+                }
+
+            }
+
+            if (ts.timeAmountUnit == 2) {
+                chNameMap.put(ts.chName.replace('2', '两'), ts);
             }
         }
 
