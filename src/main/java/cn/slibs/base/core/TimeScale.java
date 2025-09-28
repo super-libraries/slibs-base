@@ -11,6 +11,52 @@ import java.util.*;
 
 /**
  * 时间粒度
+ * <h3 id="predefined">序号与时间粒度对应关系表</h3>
+ * <table summary="序号与时间粒度对应关系表" border="1" cellpadding="5" cellspacing="2" border="1">
+ *   <tr>
+ *     <th>TS</th><th>OFTEN1_TS</th><th>OFTEN2_TS</th><th>UNIT_TS</th>
+ *   </tr>
+ *   <tr><td>-1: IRREGULAR</td><td>-1: IRREGULAR</td><td>-1: IRREGULAR</td><td>-1: IRREGULAR</td></tr>
+ *   <tr><td>&nbsp;0: SECOND</td><td>&nbsp;0: SECOND</td><td>&nbsp;0: SECOND</td><td>&nbsp;0: SECOND</td></tr>
+ *   <tr><td>&nbsp;1: SECOND2</td><td>&nbsp;1: MIN</td><td>&nbsp;1: SECOND2</td><td>&nbsp;1: SECOND2</td></tr>
+ *   <tr><td>&nbsp;2: SECOND3</td><td>&nbsp;2: MIN5</td><td>&nbsp;2: SECOND3</td><td>&nbsp;2: SECOND3</td></tr>
+ *   <tr><td>&nbsp;3: SECOND5</td><td>&nbsp;3: MIN10</td><td>&nbsp;3: SECOND5</td><td>&nbsp;3: SECOND5</td></tr>
+ *   <tr><td>&nbsp;4: SECOND10</td><td>&nbsp;4: MIN15</td><td>&nbsp;4: SECOND10</td><td>&nbsp;4: SECOND10</td></tr>
+ *   <tr><td>&nbsp;5: SECOND15</td><td>&nbsp;5: MIN30</td><td>&nbsp;5: SECOND15</td><td>&nbsp;5: SECOND15</td></tr>
+ *   <tr><td>&nbsp;6: SECOND30</td><td>&nbsp;6: HOUR</td><td>&nbsp;6: SECOND30</td><td>&nbsp;6: SECOND30</td></tr>
+ *   <tr><td>&nbsp;7: MIN</td><td>&nbsp;7: DAY</td><td>&nbsp;7: MIN</td><td>10: MIN</td></tr>
+ *   <tr><td>&nbsp;8: MIN2</td><td>&nbsp;8: WEEK</td><td>&nbsp;8: MIN2</td><td>11: MIN2</td></tr>
+ *   <tr><td>&nbsp;9: MIN3</td><td>&nbsp;9: MONTH</td><td>&nbsp;9: MIN3</td><td>12: MIN3</td></tr>
+ *   <tr><td>10: MIN4</td><td>10: MONTH_DAY</td><td>10: MIN5</td><td>13: MIN4</td></tr>
+ *   <tr><td>11: MIN5</td><td>11: YEAR</td><td>11: MIN10</td><td>14: MIN5</td></tr>
+ *   <tr><td>12: MIN10</td><td>12: SECOND2</td><td>12: MIN15</td><td>15: MIN10</td></tr>
+ *   <tr><td>13: MIN15</td><td>13: SECOND3</td><td>13: MIN30</td><td>16: MIN15</td></tr>
+ *   <tr><td>14: MIN30</td><td>14: SECOND5</td><td>14: HOUR</td><td>17: MIN30</td></tr>
+ *   <tr><td>15: HOUR</td><td>15: SECOND10</td><td>15: HOUR2</td><td>20: HOUR</td></tr>
+ *   <tr><td>16: HOUR2</td><td>16: SECOND15</td><td>16: HOUR3</td><td>21: HOUR2</td></tr>
+ *   <tr><td>17: HOUR3</td><td>17: SECOND30</td><td>17: HOUR6</td><td>22: HOUR3</td></tr>
+ *   <tr><td>18: HOUR4</td><td>18: MIN2</td><td>18: HOUR12</td><td>23: HOUR4</td></tr>
+ *   <tr><td>19: HOUR5</td><td>19: MIN3</td><td>19: DAY</td><td>24: HOUR5</td></tr>
+ *   <tr><td>20: HOUR6</td><td>20: MIN4</td><td>20: DAY2</td><td>25: HOUR6</td></tr>
+ *   <tr><td>21: HOUR12</td><td>21: HOUR2</td><td>21: DAY3</td><td>26: HOUR12</td></tr>
+ *   <tr><td>22: DAY</td><td>22: HOUR3</td><td>22: DAY5</td><td>30: DAY</td></tr>
+ *   <tr><td>23: DAY2</td><td>23: HOUR4</td><td>23: WEEK</td><td>31: DAY2</td></tr>
+ *   <tr><td>24: DAY3</td><td>24: HOUR5</td><td>24: MONTH</td><td>32: DAY3</td></tr>
+ *   <tr><td>25: DAY5</td><td>25: HOUR6</td><td>25: MONTH2</td><td>33: DAY5</td></tr>
+ *   <tr><td>26: DAY10</td><td>26: HOUR12</td><td>26: MONTH3</td><td>34: DAY10</td></tr>
+ *   <tr><td>27: DAY15</td><td>27: DAY2</td><td>27: MONTH6</td><td>35: DAY15</td></tr>
+ *   <tr><td>28: WEEK</td><td>28: DAY3</td><td>28: MONTH_DAY</td><td>36: WEEK</td></tr>
+ *   <tr><td>29: WEEK2</td><td>29: DAY5</td><td>29: MONTH_DAY2</td><td>37: WEEK2</td></tr>
+ *   <tr><td>30: MONTH</td><td>30: DAY10</td><td>30: MONTH_DAY3</td><td>40: MONTH</td></tr>
+ *   <tr><td>31: MONTH2</td><td>31: DAY15</td><td>31: MONTH_DAY6</td><td>41: MONTH2</td></tr>
+ *   <tr><td>32: MONTH3</td><td>32: WEEK2</td><td>32: YEAR</td><td>42: MONTH3</td></tr>
+ *   <tr><td>33: MONTH6</td><td>33: MONTH2</td><td>33: MIN4</td><td>43: MONTH6</td></tr>
+ *   <tr><td>34: MONTH_DAY</td><td>34: MONTH3</td><td>34: HOUR4</td><td>44: MONTH_DAY</td></tr>
+ *   <tr><td>35: MONTH_DAY2</td><td>35: MONTH6</td><td>35: HOUR5</td><td>45: MONTH_DAY2</td></tr>
+ *   <tr><td>36: MONTH_DAY3</td><td>36: MONTH_DAY2</td><td>36: DAY10</td><td>46: MONTH_DAY3</td></tr>
+ *   <tr><td>37: MONTH_DAY6</td><td>37: MONTH_DAY3</td><td>37: DAY15</td><td>47: MONTH_DAY6</td></tr>
+ *   <tr><td>38: YEAR</td><td>38: MONTH_DAY6</td><td>38: WEEK2</td><td>50: YEAR</td></tr>
+ * </table>
  *
  * @since 0.1.2
  */
