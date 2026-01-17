@@ -1,7 +1,10 @@
 package cn.slibs.test;
 
 import cn.slibs.base.utils.HttpUtils;
+import com.iofairy.top.G;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,6 +14,45 @@ import static org.junit.jupiter.api.Assertions.*;
  * @date 2024/1/4 21:06
  */
 public class HttpUtilsTest {
+
+    @Test
+    void testGetMapFromQuery() {
+        System.out.println("===============testGetMapFromQuery===============");
+        String queryString = "color=red&user%20name=%E6%9D%8E%E5%9B%9B&color=green&size=large&color=蓝色&color=&user%20name=%E5%BC%A0%20%E4%B8%89";
+        Map<String, String[]> mapMultiValue = HttpUtils.getMapMultiValueFromQuery(queryString);
+        Map<String, String> map = HttpUtils.getMapFromQuery(queryString);
+        System.out.println(G.toString(mapMultiValue));
+        System.out.println(G.toString(map));
+        assertEquals(G.toString(mapMultiValue), "{\"color\"=[\"red\", \"\", \"green\", \"蓝色\"], \"user name\"=[\"李四\", \"张 三\"], \"size\"=[\"large\"]}");
+        assertEquals(G.toString(map), "{\"color\"=\"red\", \"user name\"=\"李四\", \"size\"=\"large\"}");
+
+        mapMultiValue.put("size", new String[]{"large", null, null});
+        String url1 = HttpUtils.concatUrl("http://127.0.0.1", mapMultiValue);
+        String url2 = HttpUtils.concatUrl("http://127.0.0.1", map);
+        System.out.println(url1);
+        System.out.println(url2);
+        System.out.println(HttpUtils.decodeUrlUTF8(url1));
+        System.out.println(HttpUtils.decodeUrlUTF8(url2));
+        assertEquals(HttpUtils.decodeUrlUTF8(url1), "http://127.0.0.1?color=green&color=&size=large&color=蓝色&user name=张 三&size=&user name=李四&color=red");
+        assertEquals(HttpUtils.decodeUrlUTF8(url2), "http://127.0.0.1?size=large&user name=李四&color=red");
+    }
+
+    @Test
+    void testConcatUrl() {
+        System.out.println("===============testConcatUrl===============");
+        String url1 = HttpUtils.concatUrl("http://127.0.0.1");
+        // color=red&user%20name=%E6%9D%8E%E5%9B%9B&color=green&size=large&color=蓝色&color=&user%20name=%E5%BC%A0%20%E4%B8%89
+        String url2 = HttpUtils.concatUrl("http://127.0.0.1",
+                "color", "red", "user name", "李四", "color", "green", "size",
+                "large", "color", "蓝色", "color", "", "user name", "张 三");
+        System.out.println(url1);
+        System.out.println(url2);
+        System.out.println(HttpUtils.decodeUrlUTF8(url1));
+        System.out.println(HttpUtils.decodeUrlUTF8(url2));
+        assertEquals(HttpUtils.decodeUrlUTF8(url1), "http://127.0.0.1");
+        assertEquals(HttpUtils.decodeUrlUTF8(url2), "http://127.0.0.1?color=green&size=large&color=&color=蓝色&user name=张 三&user name=李四&color=red");
+    }
+
     @Test
     void testJsonContentType() {
         String jsonType01 = "application/json;charset=UTF-8";

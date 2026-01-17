@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * 时间粒度
  * <h3 id="predefined">序号与时间粒度对应关系表</h3>
- * <table summary="序号与时间粒度对应关系表" border="1" cellpadding="5" cellspacing="2" border="1">
+ * <table summary="序号与时间粒度对应关系表" border="1" cellpadding="5" cellspacing="2">
  *   <tr>
  *     <th>TS</th><th>OFTEN1_TS</th><th>OFTEN2_TS</th><th>UNIT_TS</th>
  *   </tr>

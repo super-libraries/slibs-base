@@ -1,8 +1,15 @@
 package cn.slibs.base.utils;
 
 
+import com.iofairy.top.G;
+import com.iofairy.top.O;
 import com.iofairy.top.S;
 
+import java.lang.reflect.Array;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -116,6 +123,151 @@ public class HttpUtils {
         return !localContentType.startsWith("application/")
                 || localContentType.startsWith("application/vnd")
                 || count != 0;
+    }
+
+    /**
+     * 拼接URL
+     *
+     * @param url 相对URL
+     * @param kvs 参数列表（必须为偶数）
+     * @return 拼接后的URL
+     * @since 0.2.4
+     */
+    public static String concatUrl(String url, Object... kvs) {
+        if (G.isEmpty(kvs)) {
+            return url;
+        } else {
+            O.verifyMapKV(false, true, false, kvs);
+            Map<String, Object> map = new HashMap<>();
+            for (int i = 0; i < kvs.length; i += 2) {
+                @SuppressWarnings("unchecked")
+                Set<Object> objSet = (Set<Object>) (map.computeIfAbsent((String) kvs[i], k -> new HashSet<>()));
+                objSet.add(kvs[i + 1]);
+            }
+            return concatUrl(url, map);
+        }
+    }
+
+    /**
+     * 拼接URL
+     *
+     * @param url       相对URL
+     * @param paramsMap 参数map
+     * @return 拼接后的URL
+     * @since 0.2.4
+     */
+    public static String concatUrl(String url, Map<String, ?> paramsMap) {
+        if (G.isEmpty(paramsMap)) {
+            return url;
+        } else {
+            url = url + "?";
+            Set<String> params = new HashSet<>();
+            paramsMap.forEach((k, v) -> {
+                String key = encodeUrlUTF8(k);
+                if (G.isEmpty(v)) {
+                    params.add(key + "=");
+                } else {
+                    if (v instanceof Collection) {
+                        for (Object o : ((Collection<?>) v)) {
+                            params.add(key + "=" + (G.isEmpty(o) ? "" : encodeUrlUTF8(o.toString())));
+                        }
+                    } else if (v.getClass().isArray()) {
+                        int length = Array.getLength(v);
+                        for (int i = 0; i < length; i++) {
+                            Object o = Array.get(v, i);
+                            params.add(key + "=" + (G.isEmpty(o) ? "" : encodeUrlUTF8(o.toString())));
+                        }
+                    } else {
+                        params.add(key + "=" + (G.isEmpty(v) ? "" : encodeUrlUTF8(v.toString())));
+                    }
+                }
+            });
+            return url + String.join("&", params);
+        }
+    }
+
+    /**
+     * 将URL中参数部分转换为Map
+     *
+     * @param queryString 查询字符串
+     * @return 参数Map
+     * @since 0.2.4
+     */
+    public static Map<String, String> getMapFromQuery(String queryString) {
+        final Map<String, String[]> mapMultiValueFromQuery = getMapMultiValueFromQuery(queryString);
+        final Map<String, String> map = new LinkedHashMap<>();
+        mapMultiValueFromQuery.forEach((k, v) -> map.put(k, G.isEmpty(v) ? "" : v[0]));
+        return map;
+    }
+
+    /**
+     * 将URL中参数部分转换为Map
+     *
+     * @param queryString 查询字符串
+     * @return 参数Map
+     * @since 0.2.4
+     */
+    public static Map<String, String[]> getMapMultiValueFromQuery(String queryString) {
+        if (S.isBlank(queryString)) return new LinkedHashMap<>();
+
+        Map<String, Set<String>> tempMap = new LinkedHashMap<>();
+
+        String[] kvs = queryString.split("&");
+        for (String kv : kvs) {
+            final String[] kvArr = kv.split("=", 2);
+            String key = decodeUrlUTF8(kvArr[0]);
+            String value = kvArr.length > 1 ? decodeUrlUTF8(kvArr[1]) : "";
+
+            tempMap.computeIfAbsent(key, k -> new HashSet<>()).add(value);
+        }
+
+        Map<String, String[]> map = new LinkedHashMap<>();
+        for (Map.Entry<String, Set<String>> entry : tempMap.entrySet()) {
+            Set<String> values = entry.getValue();
+            map.put(entry.getKey(), values.toArray(new String[0]));
+        }
+        return map;
+    }
+
+    /**
+     * 对UTF-8字符进行url编码
+     *
+     * @param url url
+     * @return 编码后的url
+     * @since 0.2.4
+     */
+    public static String encodeUrlUTF8(final String url) {
+        try {
+            return URLEncoder.encode(url, StandardCharsets.UTF_8.name());
+        } catch (Exception e) {
+            return url;
+        }
+    }
+
+    /**
+     * 对UTF-8编码后的url解码
+     *
+     * @param url url
+     * @return 解码后的url
+     * @since 0.2.4
+     */
+    public static String decodeUrlUTF8(final String url) {
+        try {
+            return URLDecoder.decode(url, StandardCharsets.UTF_8.name());
+        } catch (Exception e) {
+            return url;
+        }
+    }
+
+    /**
+     * 先解码再编码
+     *
+     * @param url url
+     * @return 解码再编码后的url
+     * @since 0.2.4
+     */
+    public static String decodeAndEncodeUrlUTF8(final String url) {
+        return encodeUrlUTF8(decodeUrlUTF8(url));
     }
 
 }
