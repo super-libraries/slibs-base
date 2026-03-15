@@ -6,7 +6,7 @@
 
     <groupId>cn.slibs</groupId>
     <artifactId>slibs-base</artifactId>
-    <version>0.2.4</version>
+    <version>0.3.0</version>
 
     <packaging>jar</packaging>
     <name>A Java base library</name>
@@ -24,6 +24,9 @@
         <lombok.version>1.18.38</lombok.version>
         <swagger-v3.version>2.2.37</swagger-v3.version>
         <swagger-v2.version>1.6.16</swagger-v2.version>
+        <commons-net.version>3.12.0</commons-net.version>
+        <jsch.version>2.27.8</jsch.version>
+        <slf4j.version>2.0.17</slf4j.version>
 
         <jackson.version>2.19.2</jackson.version>
         <junit5.version>5.10.1</junit5.version>
@@ -46,7 +49,11 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
         <!--
         =============================
         ****** swagger注解依赖包 ******
@@ -70,6 +77,21 @@
             <version>${swagger-v2.version}</version>
         </dependency>
 
+        <!--
+        ===========================
+        ****** SFTP/FTP/FTPS ******
+        ===========================
+        -->
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>${commons-net.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.mwiede</groupId>
+            <artifactId>jsch</artifactId>
+            <version>${jsch.version}</version>
+        </dependency>
 
         <!--
         ======================

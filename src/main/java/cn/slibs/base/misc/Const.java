@@ -7,13 +7,11 @@ package cn.slibs.base.misc;
  */
 public class Const {
     /*
-     * 目录分隔符
+     目录分隔符
      */
     public final static String SLASH        = "/";            // 斜杠
     public final static String BACKSLASH    = "\\";           // 反斜杠
-    /**
-     * String "quote-comma-quote"（ {@code ","} ）
-     */
+    /** String "quote-comma-quote"（ {@code ","} ） */
     public static final String QCQ          = "\",\"";
     public static final String QUOTE        = "\"";
     public static final String TWO_QUOTE    = "\"\"";
@@ -22,8 +20,9 @@ public class Const {
     public static final String COLON        = ":";
     public static final String VERTICAL_BAR = "|";
 
+
     /*
-     * Charset
+     编码常量
      */
     public static final String UTF8         = "UTF-8";
     public static final String GB18030      = "GB18030";     // GB18030 > GBK > GB2312
@@ -37,24 +36,17 @@ public class Const {
     public static final String ISO_8859_6   = "ISO-8859-6";     // Latin/Arabic
 
     /*
-     * 文件名后缀（file suffix）
+     文件名后缀（file suffix）
      */
-    /**
-     * 文件正在传输
-     */
+    /** 文件正在操作中 */
     public static final String ING          = ".ing";
-    /**
-     * 文件传输失败
-     */
+    /** 文件传输失败 */
     public static final String FAIL         = ".fail";
-    /**
-     * 文件被跳过
-     */
+    /** 文件被跳过 */
     public static final String SKIP         = ".skip";
-    /**
-     * 文件被忽略
-     */
+    /** 文件被忽略 */
     public static final String IGNORE       = ".ignore";
+
     /*
      常用文件后缀
      */
